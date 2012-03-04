@@ -3,6 +3,21 @@ Debian TODO for MBSE BBS
 
 Packaging
 ----------
+
+- doors.bat manually installed to ~/var/dosemu.c.  Deb pkg installed
+ it to ~/bin.  fix? putting a copy to both examples and there?  use 
+ postinstall instead of dh_install?
+
+- /etc/init.d/mbsebbs;  why don't I have an "Required-Stop" entry?
+ IIRC now, examples I've seen use the same as for Required-Start.
+
+- Some of the ~/etc/*.data files are ending up being owned by root:root
+instead of mbse:bbs after the pkg installation and initial operation,
+like sysinfo.data.  Possibly due to when & how those files are being
+created and when chmod is done in postinst?
+
+- Add creation of a mbsebbs-dbg package (ref http://wiki.debian.org/DebugPackage)
+
 - With purge; remove user:group mbse:bbs.  Remove /opt/mbse directory.
 - With at least purge, if not also remove:  remove statoverrides
 
@@ -14,8 +29,10 @@ Packaging
   to be installed with the MBSE BBS package.
 
 - Reference line 53 in debian/rules;  only run the 'Make distclean' if the
-  Makefile.global file is actually present.
-- configure is not being rerun automatically.  In debian/rules clean target,
+  Makefile.global file is actually present.  Try something like this:
+	if test -e Makefile.global; then $(MAKE) distclean; fi
+
+- Configure is not being rerun automatically.  In debian/rules clean target,
   remove the config.guess etc files so that it will be rerun automatically?
   Or does the make distclean take care of that when run?
 
@@ -31,14 +48,13 @@ Packaging
 - Now using dh_lintian to install the package lintian overrides file. If need
   source package Lintian overrides, create debian/source.lintian-overrides.
 
-- Create an mbsebbs-dbg package?   (Check references.)
-
 - Create & use debian/po, so that any debconf messages can be translated?
 
 
 Configuration:
 - Run mbsetup as part of postinst for a new installation?  Or just advise that it should
   be run asap after a new install?  (Perhaps put a note about it in debian/News?)
+  IIRC, the author mentioned something about there being a way to auto run it unattended?
 
 - Add a note about configuring html Docs root (1.15), URL Name, Author
   name. perhaps a note about the 'Hist. Limit'
@@ -51,4 +67,4 @@ Configuration:
   web server. (don't think it's already in the documentation?)
 
 
- -- Robert James Clay <jame@rocasa.us>  Sun, 31 Jul 2011 09:03
+ -- Robert James Clay <jame@rocasa.us>  Sat, 03 Mar 2012 22:34:13
