@@ -46,6 +46,7 @@ opt/mbse/var/unknown
 opt/mbse/var/www
 opt/mbse/var/www/stat
 usr/share/lintian/overrides
+usr/local/lib/mbse
 usr/share/mbsebbs
 usr/share/mbsebbs/etc
 usr/share/mbsebbs/int
