@@ -1,3 +1,4 @@
 05_fix-flock-error.patch
+10_configure-ac.patch
 20_MakefileGlobal.patch
 30_Do-not-run-checkbasic.patch
