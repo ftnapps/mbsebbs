@@ -1,3 +1,13 @@
+mbsebbs (0.92.0-3~1) UNRELEASED; urgency=low
+
+  * Initial change to a minimal debian/rules using dh command.
+  * Changes to debian/patches/:
+    - Add 20_MakefileGlobal.patch for setting paths for the package build.
+    - Add 30_Do-not-run-checkbasic.patch to not run checkbasic script during the
+      package build.
+
+ -- Robert James Clay <jame@rocasa.us>  Sun, 04 Mar 2012 23:22:08 -0500
+
 mbsebbs (0.92.0-2) experimental; urgency=low
 
   * Set debhelper version as 7 in debian/compat.
