@@ -1,0 +1,12 @@
+Index: mbsebbs-0.92.0/Makefile
+===================================================================
+--- mbsebbs-0.92.0.orig/Makefile	2007-09-01 11:35:47.000000000 -0400
++++ mbsebbs-0.92.0/Makefile	2012-03-04 23:01:35.000000000 -0500
+@@ -36,7 +36,6 @@
+ 		@echo ""
+ 
+ install:
+-		@./checkbasic
+ 		@if [ "`id -un`" != "root" ] ; then \
+ 			echo; echo " Must be root to install!"; echo; exit 3; \
+ 		fi
