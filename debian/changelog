@@ -1,5 +1,7 @@
 mbsebbs (0.92.0+111209-2~1) UNRELEASED; urgency=low
 
+  TODO:
+    - Change to more standard FHS layout for MBSE BBS install.
   * Use mbsebbs instead of mbse in paths and as system user.
   * Initial change to a minimal debian/rules using dh command.
   * Use 'mbsebbs' as the extension for the example files instead of 'mbse'.
@@ -11,7 +13,7 @@ mbsebbs (0.92.0+111209-2~1) UNRELEASED; urgency=low
     - Add 20_Makefile.patch to not run the checkbasic script during the package
       build.
 
- -- Robert James Clay <jame@rocasa.us>  Mon, 05 Mar 2012 15:12:43 -0500
+ -- Robert James Clay <jame@rocasa.us>  Tue, 02 Apr 2013 10:58:15 -0500
 
 mbsebbs (0.92.0+111209-1) experimental; urgency=low
 
