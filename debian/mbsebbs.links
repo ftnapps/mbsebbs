@@ -1,5 +1,5 @@
-opt/mbsebbs/bin/mbfido opt/mbsebbs/bin/mbmail
-opt/mbsebbs/bin/mbfido opt/mbsebbs/bin/mbnews
+usr/lib/mbsebbs/bin/mbfido usr/lib/mbsebbs/bin/mbmail
+usr/lib/mbsebbs/bin/mbfido usr/lib/mbsebbs/bin/mbnews
 /usr/share/doc/mbsebbs/html /opt/mbsebbs/html
 /usr/share/doc/mbsebbs/html/ftsc/index.htm /usr/share/doc/mbsebbs/html/ftsc/index.html
 /usr/share/doc/mbsebbs/html/license/index.htm /usr/share/doc/mbsebbs/html/license/index.html
