@@ -6,8 +6,7 @@
 #export DH_VERBOSE=1
 
 # Set MBSE_ROOT to mbse installation directory.
-export MBSE_ROOT=/opt/mbse
-
+export MBSE_ROOT=/usr/lib/mbsebbs
 
 %:
 	dh $@ --with=autotools_dev
