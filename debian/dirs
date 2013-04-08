@@ -40,8 +40,6 @@ var/lib/mbsebbs/tmp/nlwork
 var/lib/mbsebbs/unknown
 var/lib/mbsebbs/www
 var/lib/mbsebbs/www/stat
-opt/mbsebbs/home
-opt/mbsebbs/home/bbs
 usr/local/lib/mbsebbs
 usr/share/lintian/overrides
 usr/share/mbsebbs
