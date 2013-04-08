@@ -3,6 +3,12 @@ usr/lib
 usr/lib/mbsebbs
 usr/lib/mbsebbs/bin
 usr/lib/mbsebbs/bin/adm
+usr/local/lib/mbsebbs
+usr/local/lib/mbse
+usr/share/lintian/overrides
+usr/share/mbsebbs
+usr/share/mbsebbs/etc
+usr/share/mbsebbs/int
 var/lib/mbsebbs
 var/lib/mbsebbs/arealists
 var/lib/mbsebbs/badtic
@@ -42,8 +48,3 @@ var/lib/mbsebbs/tmp/nlwork
 var/lib/mbsebbs/unknown
 var/lib/mbsebbs/www
 var/lib/mbsebbs/www/stat
-usr/share/lintian/overrides
-usr/local/lib/mbse
-usr/share/mbsebbs
-usr/share/mbsebbs/etc
-usr/share/mbsebbs/int
