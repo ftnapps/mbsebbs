@@ -20,12 +20,12 @@ mbsebbs for Debian
     The standard html files are installed to /usr/share/doc/mbsebbs/html,
     with a softlink to there from /opt/mbse/html.
 
-    An example crontab is available as doc/mbsebbs/examples/crontab.mbse,
+    An example crontab is available as doc/mbsebbs/examples/crontab.mbsebbs,
     which can be installed using the crontab command as the user mbse.
 
     Configuring inetd or xinetd.  For inetd;  the information in
-    doc/mbsebbs/examples/inetd.mbse could be added to /etc/inetd.conf.
-    For xinetd: the doc/mbsebbs/examples/xinetd.mbse could be installed
+    doc/mbsebbs/examples/inetd.mbsebbs could be added to /etc/inetd.conf.
+    For xinetd: the doc/mbsebbs/examples/xinetd.mbsebbs could be installed
     as /etc/xinetd.d/mbsebbs.
 
     An FTN nodelist is needed for the installation, when the system is
@@ -39,5 +39,5 @@ IBC: no fido udp entry in /etc/services, cannot start Internet BBS Chat
 fido        60179/udp           # MBSE BBS Chatserver
 
 
- -- Robert James Clay <jame@rocasa.us>  Sat,  3 Mar 2012 21:49:36 -0500
+ -- Robert James Clay <jame@rocasa.us>  Mon,  8 Apr 2013 12:09:21 -0400
 
