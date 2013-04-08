@@ -1,12 +1,18 @@
 mbsebbs (0.92.0-3~1) UNRELEASED; urgency=low
 
+  TODO:
+    - Change to a more standard FHS layout for the MBSE BBS install.
+  * Use mbsebbs instead of mbse in paths and as system user.
   * Initial change to a minimal debian/rules using dh command.
+  * Use 'mbsebbs' as the extension for the example files instead of 'mbse'.
   * Changes to debian/patches/:
-    - Add 20_MakefileGlobal.patch for setting paths for the package build.
+    - Rename 10_fix-flock-error.patch to 05_fix-flock-error.patch
+    - Add 10_configure-ac.patch for setting paths for the package build.
+    - Add 20_Makefile-global-in.patch for setting paths for the package build.
     - Add 30_Do-not-run-checkbasic.patch to not run checkbasic script during the
       package build.
 
- -- Robert James Clay <jame@rocasa.us>  Sun, 04 Mar 2012 23:22:08 -0500
+ -- Robert James Clay <jame@rocasa.us>  Mon, 08 Apr 2013 13:39:23 -0400
 
 mbsebbs (0.92.0-2) experimental; urgency=low
 
