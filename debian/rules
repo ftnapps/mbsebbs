@@ -12,4 +12,6 @@ export MBSE_ROOT=/usr/lib/mbsebbs
 %:
 	dh $@ --with=autotools_dev
 
+override_dh_auto_install:
+
 
