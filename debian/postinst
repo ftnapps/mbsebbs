@@ -162,6 +162,9 @@ case "$1" in
     #  Set default user:group for mbsebbs install
     chown -R mbsebbs:bbs /opt/mbse
 
+    #  Run mbsebbs mbsetup initialization
+    /usr/lib/mbsebbs/bin/mbsetup init
+
     #   Remove if present then install the stat override for setuid mbtask
     dpkg-statoverride --remove /opt/mbsebbs/bin/mbtask >/dev/null 2>&1 || true
     dpkg-statoverride --update --add root root 6711 /opt/mbsebbs/bin/mbtask
