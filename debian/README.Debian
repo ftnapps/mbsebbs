@@ -1,8 +1,8 @@
 mbsebbs for Debian
 ------------------
 
-    MBSE BBS is installed to /opt/mbsebbs.  The user IDs mbsebbs and bbs are
-    also installed for use by MBSE BBS but their passwords are not set as part 
+    MBSE BBS is installed to /usr/lib/mbsebbs.  The user IDs mbsebbs and bbs are
+    also installed for use by MBSE BBS but their passwords are not set as part
     of the installation..
 
     The initial setup of MBSE BBS should be done by becoming the MBSE BBS
@@ -14,11 +14,11 @@ mbsebbs for Debian
     The /usr/share/mbsebbs directory is where the standard language, menu,
     template, and txtfiles archives are installed during the package
     installations and/or updates. During an initial install, they are then
-    copied to the standard /opt/mbsebbs/share/int directories for use by the
-    MBSE BBS system.
+    copied to the standard /var/lib/mbsebbs/share/int directories for use by
+    the MBSE BBS system.
 
     The standard html files are installed to /usr/share/doc/mbsebbs/html,
-    with a softlink to there from /opt/mbsebbs/html.
+    with a softlink to there from /usr/lib/mbsebbs/html.
 
     An example crontab is available as doc/mbsebbs/examples/crontab.mbsebbs,
     which can be installed using the crontab command as the user mbsebbs.
@@ -40,4 +40,4 @@ IBC: no fido udp entry in /etc/services, cannot start Internet BBS Chat
 fido        60179/udp           # MBSE BBS Chatserver
 
 
- -- Robert James Clay <jame@rocasa.us>  Sat, 03 Mar 2012 01::53:05 -0400
+ -- Robert James Clay <jame@rocasa.us>  Mon, 08 Apr 2013 10:02:53 -0400
