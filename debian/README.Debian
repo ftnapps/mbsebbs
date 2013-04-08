@@ -1,7 +1,7 @@
 mbsebbs for Debian
 ------------------
 
-    MBSE BBS is installed to /opt/mbse.  The user IDs mbse and bbs are also
+    MBSE BBS is installed to /opt/mbse.  The user IDs mbsebbs and bbs are also
     installed for use by MBSE BBS but their passwords are not set as part of
     the installation..
 
@@ -21,7 +21,7 @@ mbsebbs for Debian
     with a softlink to there from /opt/mbse/html.
 
     An example crontab is available as doc/mbsebbs/examples/crontab.mbsebbs,
-    which can be installed using the crontab command as the user mbse.
+    which can be installed using the crontab command as the user mbsebbs.
 
     Configuring inetd or xinetd.  For inetd;  the information in
     doc/mbsebbs/examples/inetd.mbsebbs could be added to /etc/inetd.conf.
@@ -39,5 +39,5 @@ IBC: no fido udp entry in /etc/services, cannot start Internet BBS Chat
 fido        60179/udp           # MBSE BBS Chatserver
 
 
- -- Robert James Clay <jame@rocasa.us>  Mon,  8 Apr 2013 12:09:21 -0400
+ -- Robert James Clay <jame@rocasa.us>  Mon,  8 Apr 2013 12:18:09 -0400
 
