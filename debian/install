@@ -24,7 +24,7 @@ lang/language.fr    /usr/share/mbsebbs/int
 lang/language.gl    /usr/share/mbsebbs/int
 lang/language.nl    /usr/share/mbsebbs/int
 lang/language.zh    /usr/share/mbsebbs/int
-lib/nodelist.conf   /opt/mbsebbs/etc
+lib/nodelist.conf   /var/lib/mbsebbs
 mbfido/mbseq    /usr/lib/mbsebbs/bin
 mbmon/mbmon /usr/lib/mbsebbs/bin
 mbnntp/mbnntp   /usr/lib/mbsebbs/bin
@@ -39,7 +39,7 @@ mbutils/mbstat  /usr/lib/mbsebbs/bin
 mbutils/mbtoberep   /usr/lib/mbsebbs/bin
 mbutils/mbuser  /usr/lib/mbsebbs/bin
 script/doors.bat    /usr/lib/mbsebbs/bin
-unix/login.defs /opt/mbsebbs/etc
+unix/login.defs /var/lib/mbsebbs
 unix/mblogin    /usr/lib/mbsebbs/bin
 unix/mbpasswd   /usr/lib/mbsebbs/bin
 unix/mbuseradd  /usr/lib/mbsebbs/bin
