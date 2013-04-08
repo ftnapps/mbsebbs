@@ -12,4 +12,6 @@ export MBSE_ROOT=/opt/mbse
 %:
 	dh $@ --with=autotools_dev
 
+override_dh_auto_install:
+
 
