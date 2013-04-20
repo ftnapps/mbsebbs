@@ -19,7 +19,7 @@ case "$1" in
         # configure 'mbsebbs' user and 'bbs' group
         getent group bbs >/dev/null 2>&1 || addgroup --system bbs
         getent passwd mbsebbs >/dev/null 2>&1 || adduser --system --quiet --home /usr/lib/mbsebbs --ingroup bbs --shell /bin/bash --gecos "MBSE BBS Admin" mbse || adduser mbse uucp || adduser mbsebbs dialout || adduser mbsebbs dip
-        getent passwd bbs >/dev/null 2>&1 || adduser --system --quiet --home /home/bbs --ingroup bbs --shell /usr/lib/mbsebbs/bin/mbnewusr --gecos "MBSE BBS Login" bbs || passwd -d bbs
+        getent passwd bbs >/dev/null 2>&1 || adduser --system --quiet --home /var/lib/mbsebbs/home --ingroup bbs --shell /usr/lib/mbsebbs/bin/mbnewusr --gecos "MBSE BBS Login" bbs || passwd -d bbs
     ;;
 
     abort-upgrade)

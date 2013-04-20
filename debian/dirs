@@ -19,6 +19,7 @@ var/lib/mbsebbs/ftp/pub
 var/lib/mbsebbs/ftp/pub/local
 var/lib/mbsebbs/ftp/incoming
 var/lib/mbsebbs/hatch
+var/lib/mbsebbs/home
 var/lib/mbsebbs/inbound
 var/lib/mbsebbs/int
 var/lib/mbsebbs/int/menus
