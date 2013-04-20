@@ -17,6 +17,8 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
+#  Set old_version variable for use later in the script.
+old_version=$2
 
 case "$1" in
     configure)
@@ -165,42 +167,6 @@ case "$1" in
 
     #  Run mbsebbs mbsetup initialization
     /usr/lib/mbsebbs/bin/mbsetup init
-
-    #   Remove if present then install the stat override for setuid mbtask
-    dpkg-statoverride --remove /usr/lib/mbsebbs/bin/mbtask >/dev/null 2>&1 || true
-    dpkg-statoverride --update --add root root 6711 /usr/lib/mbsebbs/bin/mbtask
-
-    #   Remove if present then install the stat override for setuid mbnewusr
-    dpkg-statoverride --remove /usr/lib/mbsebbs/bin/mbnewusr >/dev/null 2>&1 || true
-    dpkg-statoverride --update --add mbsebbs bbs 6750 /usr/lib/mbsebbs/bin/mbnewusr
-
-    #   Remove if present then install the stat override for setuid root and 
-    #   setgid root for mbuser (-rws--s--x)
-    dpkg-statoverride --remove /usr/lib/mbsebbs/bin/mbuser >/dev/null 2>&1 || true
-    dpkg-statoverride --update --add root root 6711 /usr/lib/mbsebbs/bin/mbuser
-
-    #   Remove if present then install the stat override for setuid root and 
-    #   setgid root for mbuseradd (-rws--s--x)
-    dpkg-statoverride --remove /usr/lib/mbsebbs/bin/mbuseradd >/dev/null 2>&1 || true
-    dpkg-statoverride --update --add root root 6711 /usr/lib/mbsebbs/bin/mbuseradd
-
-    #   Remove if present then install the stat override for setuid root and 
-    #   setgid root for mbpasswd (-rws--s--x)
-    dpkg-statoverride --remove /usr/lib/mbsebbs/bin/mbpasswd >/dev/null 2>&1 || true
-    dpkg-statoverride --update --add root root 6711 /usr/lib/mbsebbs/bin/mbpasswd
-
-    #   Remove if present then install the stat override owndership by
-    #   root for mblogin.
-    dpkg-statoverride --remove /usr/lib/mbsebbs/bin/mblogin >/dev/null 2>&1 || true
-    dpkg-statoverride --update --add root root 0755 /usr/lib/mbsebbs/bin/mblogin
-
-    #   Remove if present then install the stat setting for /usr/lib/mbsebbs/tmp
-    dpkg-statoverride --remove /usr/lib/mbsebbs/tmp >/dev/null 2>&1 || true
-    dpkg-statoverride --update --add mbsebbs bbs 0770 /usr/lib/mbsebbs/tmp
-
-    #   Remove if present then install the stat setting for /usr/lib/mbsebbs/etc
-    dpkg-statoverride --remove /usr/lib/mbsebbs/etc >/dev/null 2>&1 || true
-    dpkg-statoverride --update --add mbsebbs bbs 0770 /usr/lib/mbsebbs/etc
 
     ;;
 

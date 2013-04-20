@@ -13,13 +13,37 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
+#  Set old_version variable for use later in the script.
+old_version=$2
+
+#   Remove these dpkg-statoverride settings, as the package
+# is no longer using that in debian/postinst to set it.
+drop_statoverride() {
+    for file in /opt/mbsebbs/bin/mbtask /opt/mbsebbs/bin/mbtask \
+        /opt/mbsebbs/bin/mbuser /opt/mbsebbs/bin/mbuseradd \
+        /opt/mbsebbs/bin/mbpasswd /opt/mbsebbs/bin/mblogin \
+        /opt/mbsebbs/tmp /opt/mbsebbs/etc;
+    do
+        if dpkg-statoverride --list $file >/dev/null; then
+            dpkg-statoverride --remove $file
+        fi
+    done
+}
 
 case "$1" in
-    install|upgrade)
+    install)
         # configure 'mbsebbs' user and 'bbs' group
         getent group bbs >/dev/null 2>&1 || addgroup --system bbs
         getent passwd mbsebbs >/dev/null 2>&1 || adduser --system --quiet --home /usr/lib/mbsebbs --ingroup bbs --shell /bin/bash --gecos "MBSE BBS Admin" mbse || adduser mbse uucp || adduser mbsebbs dialout || adduser mbsebbs dip
         getent passwd bbs >/dev/null 2>&1 || adduser --system --quiet --home /var/lib/mbsebbs/home --ingroup bbs --shell /usr/lib/mbsebbs/bin/mbnewusr --gecos "MBSE BBS Login" bbs || passwd -d bbs
+    ;;
+
+    upgrade)
+        #  Remove these settings as dpkg-statoverride is no longer being used
+        #  in debian/postinst to set it.
+        if dpkg --compare-versions $2 lt 0.92.0+111209-2; then
+            drop_statoverride;
+        fi
     ;;
 
     abort-upgrade)
