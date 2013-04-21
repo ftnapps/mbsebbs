@@ -3,9 +3,10 @@
 
 Obtaining the source archive
 =============================
-The source archive was originally downloaded from http://www.mbse.eu/mbse/mbsebbs/download/
-as the file mbsebbs-0.92.0.tar.bz2.  It was recreated and renamed to mbsebbs_0.92.0.orig.tar.gz
-as part of the packaging process.
+Released source archives are downloaded from http://www.mbse.eu/mbse/mbsebbs/download/
+as the file mbsebbs-M.NN.P.tar.bz2, where "M" is the major version number, "NN" is the
+minor version number and "P" is the patch version number. It was recreated and renamed
+to mbsebbs_M.NN.P.orig.tar.gz as part of the packaging process.
 
 
 Patching the source archive
