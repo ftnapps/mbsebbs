@@ -10,7 +10,7 @@ Homepage: http://www.mbse.eu/bbsing/mbsebbs
 
 Package: mbsebbs
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, adduser
+Depends: ${shlibs:Depends}, ${misc:Depends}, adduser, passwd
 Recommends: xinetd, arc, zip, unzip, telnetd-ssl, openssh-server
 Suggests: arj, unrar-free, zoo, lha, ha, joe, dosemu, dosemu-freedos, tetradraw
 Description: MBSE BBS System for Unix
