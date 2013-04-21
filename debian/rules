@@ -14,6 +14,9 @@ export MBSE_ROOT=/usr/lib/mbsebbs
 
 override_dh_auto_install:
 
+override_dh_strip:
+	dh_strip --dbg-package=mbsebbs-dbg
+
 override_dh_fixperms:
 	dh_fixperms
 	chmod -x debian/mbsebbs/usr/share/mbsebbs/int/txtfiles-es.tar
