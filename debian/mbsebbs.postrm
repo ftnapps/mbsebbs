@@ -35,6 +35,8 @@ drop_statoverride() {
 case "$1" in
     purge)
         drop_statoverride
+        delgroup --system --quiet bbs
+        deluser --remove-all-files --system --quiet mbsebbs
     ;;
 
     upgrade)
