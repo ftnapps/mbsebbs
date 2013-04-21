@@ -39,6 +39,18 @@ case "$1" in
     ;;
 
     upgrade)
+        # If both '/opt/mbse' and '/usr/share/mbsebbs' are present and
+        # if /usr/lib/mbsebbs is not already present; it is assumed
+        # that '/opt/mbse' is from the package package install. Update
+        # package installation directories to the more standard layout.
+        if [ -e "/opt/mbse" || -e "/usr/share/mbsebbs" ]; then
+            if [ ! -e "/var/lib/mbsebbs" ]; then
+                mv /opt/mbse/etc /var/lib/mbsebbs
+            fi
+            if [ ! -e "/usr/lib/mbsebbs" ]; then
+                mv /opt/mbse /usr/lib/mbsebbs
+            fi
+        fi
         #  Remove these settings as dpkg-statoverride is no longer being used
         #  in debian/postinst to set it.
         if dpkg --compare-versions $2 lt 0.92.0+111209-2; then
