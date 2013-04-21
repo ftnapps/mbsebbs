@@ -14,4 +14,14 @@ export MBSE_ROOT=/usr/lib/mbsebbs
 
 override_dh_auto_install:
 
+override_dh_fixperms:
+	dh_fixperms
+	chmod -x debian/mbsebbs/usr/share/mbsebbs/int/txtfiles-es.tar
+	chmod 4710 debian/mbsebbs/usr/lib/mbsebbs/bin/mbtask
+	chmod 6750 debian/mbsebbs/usr/lib/mbsebbs/bin/mbnewusr
+	chmod 6711 debian/mbsebbs/usr/lib/mbsebbs/bin/mbusr
+	chmod 6711 debian/mbsebbs/usr/lib/mbsebbs/bin/mbusradd
+	chmod 6711 debian/mbsebbs/usr/lib/mbsebbs/bin/mbpasswd
+	chmod 0755 debian/mbsebbs/usr/lib/mbsebbs/bin/mblogin
+
 
