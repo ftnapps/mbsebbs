@@ -1,9 +1,13 @@
 mbsebbs (0.92.0+111209-2~1) UNRELEASED; urgency=low
 
   TODO:
-    - Change to more standard FHS layout for MBSE BBS install.
+    - Change to more standard FHS layout for the MBSE BBS package installation.
   * Use mbsebbs instead of mbse in paths and as system user.
+  * Update 'mbsebbs' & 'bbs' user settings in debian/preinst.
+  * Correct 'bbs' user home directory for installs in debian/preinst.
   * Initial change to a minimal debian/rules using dh command.
+  * Package maintainer scripts no longer uses dpkg-statoverride commands.
+  * Update package installation directories during upgrades in debian/preinst.
   * Use 'mbsebbs' as the extension for the example files instead of 'mbse'.
   * Changes to debian/patches/:
     - Add 10_configure-ac.patch for updating OWNER & AC_PREFIX_DEFAULT for
@@ -13,7 +17,7 @@ mbsebbs (0.92.0+111209-2~1) UNRELEASED; urgency=low
     - Add 20_Makefile.patch to not run the checkbasic script during the package
       build.
 
- -- Robert James Clay <jame@rocasa.us>  Tue, 02 Apr 2013 10:58:15 -0500
+ -- Robert James Clay <jame@rocasa.us>  Sat, 20 Apr 2013 21:31:17 -0400
 
 mbsebbs (0.92.0+111209-1) experimental; urgency=low
 
