@@ -1,0 +1,20 @@
+Description: Changes to mbsetup/mbsetup.c for the package build.
+ Change required system user from 'mbse' to 'mbsebbs'.
+ .
+ This is for the Debian package build.
+Author: Robert James Clay <jame@rocasa.us>
+Last-Updated: 20130424
+
+--- a/mbsetup/mbsetup.c
++++ b/mbsetup/mbsetup.c
+@@ -400,8 +400,8 @@
+      * Find out who is on the keyboard or automated the keyboard.
+      */
+     pw = getpwuid(geteuid());
+-    if (strcmp(pw->pw_name, (char *)"mbse")) {
+-	printf("ERROR: only user \"mbse\" may use this program\n");
++    if (strcmp(pw->pw_name, (char *)"mbsebbs")) {
++        printf("ERROR: only user \"mbsebbs\" may use this program\n");
+         exit(MBERR_INIT_ERROR);
+     }
+ 
