@@ -1,0 +1,5 @@
+debian/mbadm/crontab.mbsebbs
+debian/mbadm/inetd.mbsebbs
+debian/mbadm/logrotate.mbsebbs
+debian/mbadm/profile.mbsebbs
+debian/mbadm/xinetd.mbsebbs
