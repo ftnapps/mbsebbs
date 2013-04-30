@@ -43,10 +43,10 @@ case "$1" in
         # if /usr/lib/mbsebbs is not already present; it is assumed
         # that '/opt/mbse' is from the package package install. Update
         # package installation directories to the more standard layout.
-        if [ -e "/opt/mbse" || -e "/usr/share/mbsebbs" ]; then
+        if [ -e "/opt/mbse" ] && [ -e "/usr/share/mbsebbs" ]; then
             if [ ! -e "/var/lib/mbsebbs" ]; then
                 mv /opt/mbse/etc /var/lib/mbsebbs
-                usermod -m--home /var/lib/mbsebbs/home/bbs bbs
+                usermod -m --home /var/lib/mbsebbs/home/bbs bbs
             fi
             if [ ! -e "/usr/lib/mbsebbs" ]; then
                 mv /opt/mbse /usr/lib/mbsebbs
