@@ -165,7 +165,7 @@ case "$1" in
     chown -R mbsebbs:bbs /var/lib/mbsebbs
 
     #  Run mbsebbs mbsetup initialization
-    /usr/lib/mbsebbs/bin/mbsetup init
+    su - mbsebbs -c "/usr/lib/mbsebbs/bin/mbsetup init"
 
     ;;
 
