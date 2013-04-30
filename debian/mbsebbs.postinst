@@ -162,7 +162,6 @@ case "$1" in
     fi
 
     #  Set default user:group for mbsebbs install
-    chown -R mbsebbs:bbs /usr/lib/mbsebbs
     chown -R mbsebbs:bbs /var/lib/mbsebbs
 
     #  Run mbsebbs mbsetup initialization
