@@ -35,6 +35,7 @@ mbtask/mbtask   /usr/lib/mbsebbs/bin
 mbutils/mball   /usr/lib/mbsebbs/bin
 mbutils/mbbw    /usr/lib/mbsebbs/bin
 mbutils/mblang  /usr/lib/mbsebbs/bin
+mbutils/mbsnmp  /usr/lib/mbsebbs/bin
 mbutils/mbstat  /usr/lib/mbsebbs/bin
 mbutils/mbtoberep   /usr/lib/mbsebbs/bin
 mbutils/mbuser  /usr/lib/mbsebbs/bin
