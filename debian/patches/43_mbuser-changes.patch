@@ -1,0 +1,18 @@
+Description: Changes to mbsebbs/mbutils/mbuser.c for package build. 
+ Change how the user data files are referenced.
+Author: Robert James Clay <jame@rocasa.us>
+Last-Updated: 20130501
+
+--- mbsebbs-0.92.0+111209.orig/mbutils/mbuser.c
++++ mbsebbs-0.92.0+111209/mbutils/mbuser.c
+@@ -180,8 +180,8 @@ void UserPack(int days, int level, int p
+ 
+     fnin  = calloc(PATH_MAX, sizeof(char));
+     fnout = calloc(PATH_MAX, sizeof(char));
+-    snprintf(fnin,  PATH_MAX, "%s/etc/users.data", getenv("MBSE_ROOT"));
+-    snprintf(fnout, PATH_MAX, "%s/etc/users.temp", getenv("MBSE_ROOT"));
++    snprintf(fnin,  PATH_MAX, "%s", "/var/lib/mbsebbs/users.data");
++    snprintf(fnout, PATH_MAX, "%s", "/var/lib/mbsebbs/users.temp");
+ 
+     /*
+      * First copy the users database, all packing will be done
