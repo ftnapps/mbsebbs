@@ -1,4 +1,11 @@
-mbsebbs (0.92.0+111209-2~1) UNRELEASED; urgency=low
+mbsebbs (1.0.1-1~1) UNRELEASED; urgency=low
+
+  * New Upstream Release.
+  * Start packaging development for new release.
+
+ -- Robert James Clay <jame@rocasa.us>  Wed, 11 Sep 2013 04:55:28 -0400
+
+mbsebbs (0.92.0+111209-2) UNRELEASED; urgency=low
 
   * Use mbsebbs instead of mbse in paths and as system user.
   * Initial change to a minimal debian/rules using dh command.
