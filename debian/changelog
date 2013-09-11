@@ -1,11 +1,12 @@
 mbsebbs (1.0.1-1~1) UNRELEASED; urgency=low
 
   * New Upstream Release.
+  * Refresh debian/patches/10_configure-ac.patch for new upstream.
   TODO:
-    - Start packaging development for new release, including the change to a
+    - Packaging development for new release, including the change to a
       more standard FHS layout for the MBSE BBS package installation.
 
- -- Robert James Clay <jame@rocasa.us>  Wed, 11 Sep 2013 06:25:55 -0400
+ -- Robert James Clay <jame@rocasa.us>  Wed, 11 Sep 2013 07:48:25 -0400
 
 mbsebbs (0.92.0+111209-2) stable; urgency=low
 
