@@ -1,7 +1,14 @@
-mbsebbs (0.92.0+111209-2~2) UNRELEASED; urgency=low
+mbsebbs (1.0.1-1~1) UNRELEASED; urgency=low
 
+  * New Upstream Release.
   TODO:
-    - Change to more standard FHS layout for the MBSE BBS package installation.
+    - Start packaging development for new release, including the change to a
+      more standard FHS layout for the MBSE BBS package installation.
+
+ -- Robert James Clay <jame@rocasa.us>  Wed, 11 Sep 2013 06:25:55 -0400
+
+mbsebbs (0.92.0+111209-2) stable; urgency=low
+
   * Remove dir-or-file-in-opt & file-in-unusual-dir mbsebbs.lintian-overrides.
   * Add prefix 'mbsebbs' to 'dirs', 'docs', 'examples', and maintainer scripts.
   * Update upstream source & quilt related information in debian/README.source.
@@ -26,7 +33,7 @@ mbsebbs (0.92.0+111209-2~2) UNRELEASED; urgency=low
       build.
     - Add 30_mbsetup-changes.patch for necessary changes for the package build.
 
- -- Robert James Clay <jame@rocasa.us>  Tue, 20 Apr 2013 10:04:58 -0400
+ -- Robert James Clay <jame@rocasa.us>  Tue, 20 Apr 2013 10:05:08 -0400
 
 mbsebbs (0.92.0+111209-1) experimental; urgency=low
 
