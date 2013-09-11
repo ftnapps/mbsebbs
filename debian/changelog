@@ -1,14 +1,29 @@
 mbsebbs (1.0.1-1~1) UNRELEASED; urgency=low
 
   * New Upstream Release.
-  * Start packaging development for new release.
+  * Refresh debian/patches/10_configure-ac.patch for new upstream.
+  TODO:
+    - Packaging development for new release, including the change to a
+      more standard FHS layout for the MBSE BBS package installation.
 
- -- Robert James Clay <jame@rocasa.us>  Wed, 11 Sep 2013 04:55:28 -0400
+ -- Robert James Clay <jame@rocasa.us>  Wed, 11 Sep 2013 07:48:25 -0400
 
-mbsebbs (0.92.0+111209-2) UNRELEASED; urgency=low
+mbsebbs (0.92.0+111209-2) stable; urgency=low
 
+  * Remove dir-or-file-in-opt & file-in-unusual-dir mbsebbs.lintian-overrides.
+  * Add prefix 'mbsebbs' to 'dirs', 'docs', 'examples', and maintainer scripts.
+  * Update upstream source & quilt related information in debian/README.source.
+  * Add /usr/lib/mbsebbs/var, /usr/lib/mbsebbs/tmp, /usr/lib/mbsebbs/log , &
+    /usr/lib/mbsebbs/share to debian/mbsebbs.links.
+  * Add a stanza for an mbsebbs debug package to debian/control.
+  * Add remote_fs Required-* entries to debian/mbsebbs.init.
   * Use mbsebbs instead of mbse in paths and as system user.
+  * Update 'mbsebbs' & 'bbs' user settings in debian/preinst.
+  * Correct 'bbs' user home directory for installs in debian/preinst.
   * Initial change to a minimal debian/rules using dh command.
+  * Package maintainer scripts no longer uses dpkg-statoverride commands.
+  * Update package installation directories during upgrades in debian/preinst.
+  * Add installing script/* into debian/mbsebbs.examples.
   * Use 'mbsebbs' as the extension for the example files instead of 'mbse'.
   * Changes to debian/patches/:
     - Add 10_configure-ac.patch for updating OWNER & AC_PREFIX_DEFAULT for
@@ -17,8 +32,9 @@ mbsebbs (0.92.0+111209-2) UNRELEASED; urgency=low
       file for the package build.
     - Add 20_Makefile.patch to not run the checkbasic script during the package
       build.
+    - Add 30_mbsetup-changes.patch for necessary changes for the package build.
 
- -- Robert James Clay <jame@rocasa.us>  Mon, 05 Mar 2012 15:12:43 -0500
+ -- Robert James Clay <jame@rocasa.us>  Tue, 20 Apr 2013 10:05:08 -0400
 
 mbsebbs (0.92.0+111209-1) experimental; urgency=low
 

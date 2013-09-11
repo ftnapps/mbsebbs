@@ -1,10 +1,16 @@
-opt/mbsebbs/bin/mbfido opt/mbsebbs/bin/mbmail
-opt/mbsebbs/bin/mbfido opt/mbsebbs/bin/mbnews
-/usr/share/doc/mbsebbs/html /opt/mbsebbs/html
+usr/lib/mbsebbs/bin/mbfido usr/lib/mbsebbs/bin/mbmail
+usr/lib/mbsebbs/bin/mbfido usr/lib/mbsebbs/bin/mbnews
+/usr/share/doc/mbsebbs/html /usr/lib/mbsebbs/html
 /usr/share/doc/mbsebbs/html/ftsc/index.htm /usr/share/doc/mbsebbs/html/ftsc/index.html
 /usr/share/doc/mbsebbs/html/license/index.htm /usr/share/doc/mbsebbs/html/license/index.html
 /usr/share/doc/mbsebbs/html/menus/index.htm /usr/share/doc/mbsebbs/html/menus/index.html
 /usr/share/doc/mbsebbs/html/misc/index.htm /usr/share/doc/mbsebbs/html/misc/index.html
 /usr/share/doc/mbsebbs/html/programs/index.htm /usr/share/doc/mbsebbs/html/programs/index.html
 /usr/share/doc/mbsebbs/html/setup/index.htm /usr/share/doc/mbsebbs/html/setup/index.html
+/var/lib/mbsebbs /usr/lib/mbsebbs/etc
+/var/lib/mbsebbs /usr/lib/mbsebbs/share
+/var/lib/mbsebbs /usr/lib/mbsebbs/var
+/var/lib/mbsebbs/home /usr/lib/mbsebbs/home
+/var/lib/mbsebbs/log /usr/lib/mbsebbs/log
+/var/lib/mbsebbs/tmp /usr/lib/mbsebbs/tmp
 
