@@ -4,13 +4,13 @@ Description: Updates to configure.ac for package build.
  .
  This is for the Debian package build.
 Author: Robert James Clay <jame@rocasa.us>
-Last-Updated: 20130402
+Last-Updated: 20130911
 
 --- a/configure.ac
 +++ b/configure.ac
 @@ -17,7 +17,7 @@
- COPYRIGHT="Copyright (C) 1997-2011 Michiel Broek, All Rights Reserved"
- SHORTRIGHT="Copyright (C) 1997-2011 M. Broek"
+ COPYRIGHT="Copyright (C) 1997-2013 Michiel Broek, All Rights Reserved"
+ SHORTRIGHT="Copyright (C) 1997-2013 M. Broek"
  GROUP="bbs"
 -OWNER="mbse"
 +OWNER="mbsebbs"
