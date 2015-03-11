@@ -9,8 +9,8 @@ Last-Updated: 20130911
 --- a/configure.ac
 +++ b/configure.ac
 @@ -17,7 +17,7 @@
- COPYRIGHT="Copyright (C) 1997-2013 Michiel Broek, All Rights Reserved"
- SHORTRIGHT="Copyright (C) 1997-2013 M. Broek"
+ COPYRIGHT="Copyright (C) 1997-2014 Michiel Broek, All Rights Reserved"
+ SHORTRIGHT="Copyright (C) 1997-2014 M. Broek"
  GROUP="bbs"
 -OWNER="mbse"
 +OWNER="mbsebbs"
