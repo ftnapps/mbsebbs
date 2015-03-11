@@ -164,8 +164,10 @@ case "$1" in
     #  Set default user:group for mbsebbs install
     chown -R mbsebbs:bbs /var/lib/mbsebbs
 
-    #  Run mbsebbs mbsetup initialization
-    su - mbsebbs -c "/usr/lib/mbsebbs/bin/mbsetup init"
+    #  Run mbsebbs mbsetup initialization if this is a new install
+    if [ -z "$old_version" ]; then
+        su - mbsebbs -c "/usr/lib/mbsebbs/bin/mbsetup init"
+    fi
 
     ;;
 
