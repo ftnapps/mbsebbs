@@ -1,10 +1,32 @@
-mbsebbs (1.0.1-1~1) UNRELEASED; urgency=low
+mbsebbs (1.0.4-1~1) UNRELEASED; urgency=low
 
-  * New Upstream Release.
-  * Refresh debian/patches/10_configure-ac.patch for new upstream.
   TODO:
     - Packaging development for new release, including the change to a
       more standard FHS layout for the MBSE BBS package installation.
+  * New Upstream Release.
+  * Refresh debian/patches/10_configure-ac.patch for new upstream.
+  * Remove dpkg-statoverride operations from debian/mbsebbs.postrm.
+  * Include 'lhasa' as an option to the 'lha' Suggests in debian/control.
+  * Changes to debian/rules:
+    - Explicitly run dh_auto_clean if Makefile.global file is not present.
+    - Do not attempt to setuid/setgid on binaries in debian/rules.
+  * Changes to debian/mbsebbs.postinst:
+    - Add configuring setuid & setgid as necessary.
+    - Run 'mbsetup init' if this a new installation.
+    - Set user:group for '/usr/lib/mbsebbs' in directory configuration.
+
+ -- Robert James Clay <jame@rocasa.us>  Wed, 11 Mar 2015 14:51:10 -0400
+
+mbsebbs (1.0.1-2) stable; urgency=low
+
+  * Correct line creating mbsebbs using in debian/mbsebbs.preinst.
+
+ -- Robert James Clay <jame@rocasa.us>  Wed, 11 Sep 2014 09:17:48 -0400
+
+mbsebbs (1.0.1-1) stable; urgency=low
+
+  * New Upstream Release.
+  * Refresh debian/patches/10_configure-ac.patch for new upstream.
 
  -- Robert James Clay <jame@rocasa.us>  Wed, 11 Sep 2013 07:48:25 -0400
 
