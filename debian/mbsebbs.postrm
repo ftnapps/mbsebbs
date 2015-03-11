@@ -18,23 +18,8 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
-#   Remove these dpkg-statoverride settings, as the package
-# is no longer using that in debian/postinst to set it.
-drop_statoverride() {
-    for file in /opt/mbsebbs/bin/mbtask /opt/mbsebbs/bin/mbtask \
-        /opt/mbsebbs/bin/mbuser /opt/mbsebbs/bin/mbuseradd \
-        /opt/mbsebbs/bin/mbpasswd /opt/mbsebbs/bin/mblogin \
-        /opt/mbsebbs/tmp /opt/mbsebbs/etc;
-    do
-        if dpkg-statoverride --list $file >/dev/null; then
-            dpkg-statoverride --remove $file
-        fi
-    done
-}
-
 case "$1" in
     purge)
-        drop_statoverride
         delgroup --system --quiet bbs
         deluser --remove-all-files --system --quiet mbsebbs
     ;;
