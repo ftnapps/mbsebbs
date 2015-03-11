@@ -165,6 +165,18 @@ case "$1" in
     chown -R mbsebbs:bbs /var/lib/mbsebbs
     chown -R mbsebbs:bbs /usr/lib/mbsebbs
 
+    # Configure setuid & setgid as necessary
+    chown root:root /usr/lib/mbsebbs/bin/mbtask
+    chmod 4754 /usr/lib/mbsebbs/bin/mbtask
+    chown root:root /usr/lib/mbsebbs/bin/mbnewusr
+    chmod 6754 /usr/lib/mbsebbs/bin/mbnewusr
+    chown root:root /usr/lib/mbsebbs/bin/mbuser
+    chmod 6754 /usr/lib/mbsebbs/bin/mbuser
+    chown root:root /usr/lib/mbsebbs/bin/mbuseradd
+    chmod 6754 /usr/lib/mbsebbs/bin/mbuseradd
+    chown root:root /usr/lib/mbsebbs/bin/mbpasswd
+    chmod 6754 /usr/lib/mbsebbs/bin/mbpasswd
+
     #  Run mbsebbs mbsetup initialization if this is a new install
     if [ -z "$old_version" ]; then
         su - mbsebbs -c "/usr/lib/mbsebbs/bin/mbsetup init"
