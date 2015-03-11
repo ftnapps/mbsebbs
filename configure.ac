@@ -1,5 +1,4 @@
 # Process this file with autoconf to produce a configure script.
-# $Id: configure.ac,v 1.23 2007/10/16 19:16:09 mbse Exp $
 
 AC_INIT(lib/mbselib.h)
 AM_CONFIG_HEADER(config.h)
@@ -11,12 +10,12 @@ AC_SUBST(SUBDIRS)
 # After changeing the version number, run autoconf!
 #
 PACKAGE="mbsebbs"
-MAJOR="0"
-MINOR="92"
-REVISION="0"
+MAJOR="1"
+MINOR="0"
+REVISION="1"
 VERSION="$MAJOR.$MINOR.$REVISION"
-COPYRIGHT="Copyright (C) 1997-2007 Michiel Broek, All Rights Reserved"
-SHORTRIGHT="Copyright (C) 1997-2007 M. Broek"
+COPYRIGHT="Copyright (C) 1997-2013 Michiel Broek, All Rights Reserved"
+SHORTRIGHT="Copyright (C) 1997-2013 M. Broek"
 GROUP="bbs"
 OWNER="mbse"
 ROWNER="`id -un root`"
@@ -370,7 +369,7 @@ AC_OUTPUT(
 	INSTALL 
 	FILE_ID.DIZ
 	script/editor
-	html/index.htm
+	html/index.html
 	html/basic.html
 	html/upgrade.html
 )

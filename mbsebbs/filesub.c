@@ -1,10 +1,9 @@
 /*****************************************************************************
  *
- * $Id: filesub.c,v 1.49 2007/08/25 18:32:08 mbse Exp $
  * Purpose ...............: All the file sub functions. 
  *
  *****************************************************************************
- * Copyright (C) 1997-2007
+ * Copyright (C) 1997-2011
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -45,10 +44,13 @@
 #include "ttyio.h"
 
 
-extern pid_t	    mypid;
-int		    arecno = 1;	/* Area record number			     */
-int		    Hcolor = 9;	/* Color of area line in xxxScan() functions */
-extern int	    rows;
+extern pid_t	    	mypid;
+int		    	arecno = 1;	/* Area record number			     */
+int		    	Hcolor = 9;	/* Color of area line in xxxScan() functions */
+extern int	    	rows;
+extern unsigned int	mib_uploads;
+extern unsigned int	mib_kbupload;
+
 
 
 /*
@@ -478,75 +480,28 @@ void Home()
  */
 int ScanDirect(char *fn)
 {
-    FILE    *fp, *lp;
-    int	    err, Found = FALSE;
-    char    *temp, *temp1, *stdlog, *errlog, buf[256], msg[81];
+    int	    Found = FALSE;
+    char    *temp, msg[81];
 
     temp  = calloc(PATH_MAX, sizeof(char));
-    temp1 = calloc(PATH_MAX, sizeof(char));
-    stdlog = calloc(PATH_MAX, sizeof(char));
-    errlog = calloc(PATH_MAX, sizeof(char));
-    
-    snprintf(temp,   PATH_MAX, "%s/%s/upl/%s", CFG.bbs_usersdir, exitinfo.Name, fn);
-    snprintf(temp1,  PATH_MAX, "%s/etc/virscan.data", getenv("MBSE_ROOT"));
-    snprintf(stdlog, PATH_MAX, "%s/tmp/stdlog%d", getenv("MBSE_ROOT"), mypid);
-    snprintf(errlog, PATH_MAX, "%s/tmp/errlog%d", getenv("MBSE_ROOT"), mypid);
+    snprintf(temp, PATH_MAX, "%s/%s/upl/%s", CFG.bbs_usersdir, exitinfo.Name, fn);
 
-    if ((fp = fopen(temp1, "r")) != NULL) {
-	fread(&virscanhdr, sizeof(virscanhdr), 1, fp);
+				/* Scanning */
+    snprintf(msg, 81, "%s %s ", (char *) Language(132), fn);
+    pout(CFG.TextColourF, CFG.TextColourB, msg);
 
-	while (fread(&virscan, virscanhdr.recsize, 1, fp) == 1) {
-
-	    if (virscan.available && (file_exist(virscan.scanner, X_OK) == 0)) {
-				      /* Scanning */               /* with */
-		snprintf(msg, 81, "%s %s %s %s ", (char *) Language(132), fn, (char *) Language(133), virscan.comment);
-		pout(CFG.TextColourF, CFG.TextColourB, msg);
-
-		Altime(3600);
-		err = execute_str(virscan.scanner, virscan.options, temp, (char *)"/dev/null", stdlog, errlog);
-		if (file_size(stdlog)) {
-		    if ((lp = fopen(stdlog, "r"))) {
-			while (fgets(buf, sizeof(buf) -1, lp)) {
-			    Striplf(buf);
-			    Syslog('+', "stdout: \"%s\"", printable(buf, 0));
-			}
-			fclose(lp);
-		    }
-		}
-		if (file_size(errlog)) {
-		    if ((lp = fopen(errlog, "r"))) {
-			while (fgets(buf, sizeof(buf) -1, lp)) {
-			    Striplf(buf);
-			    Syslog('+', "stderr: \"%s\"", printable(buf, 0));
-    			}
-			fclose(lp);
-		    }
-		}
-		unlink(stdlog);
-		unlink(errlog);
-		if (err != virscan.error) {
-		    WriteError("VIRUS ALERT: Result %d (%s)", err, virscan.comment);
-		    /* Possible VIRUS found! */
-		    snprintf(msg, 81, "%s", (char *) Language(199));
-		    pout(CFG.HiliteF, CFG.HiliteB, msg);
-		    Found = TRUE;
-		} else {
-		    /* Ok */
-		    snprintf(msg, 81, "%s", (char *) Language(200));
-		    PUTSTR(msg);
-		}
-		Enter(1);
-		Altime(0);
-		Nopper();
-	    }
-	}
-	fclose(fp);
+    if (VirScanFile(temp)) {
+	/* Possible VIRUS found! */
+	snprintf(msg, 81, "%s", (char *) Language(199));
+	pout(CFG.HiliteF, CFG.HiliteB, msg);
+	Found = TRUE;
+    } else {
+	/* Ok */
+	snprintf(msg, 81, "%s", (char *) Language(200));
+	PUTSTR(msg);
     }
-
+    Enter(1);
     free(temp);
-    free(temp1);
-    free(stdlog);
-    free(errlog);
     return Found;
 }
 
@@ -562,18 +517,32 @@ int ScanDirect(char *fn)
  */
 int ScanArchive(char *fn, char *ftype)
 {
-    FILE    *fp, *lp;
-    int	    err = 0, Found = FALSE;
-    char    *temp, *stdlog, *errlog, buf[256], msg[81];
-    char    *cwd = NULL, *fid;
+    FILE    *fp;
+    char    *temp, *temp2, msg[81], *cwd = NULL, *fid;
+
+    temp = calloc(PATH_MAX, sizeof(char));
+    
+    /*
+     * Scan file for viri
+     */
+    snprintf(msg, 81, "%s %s ", (char *) Language(132), fn);
+    pout(CFG.TextColourF, CFG.TextColourB, msg);
+    snprintf(temp, PATH_MAX, "%s/%s/upl/%s", CFG.bbs_usersdir, exitinfo.Name, fn);
+    if (VirScanFile(temp)) {
+	/* Possible VIRUS found! */
+	pout(CFG.HiliteF, CFG.HiliteB, (char *) Language(199));
+	free(temp);
+	Enter(1);
+	return 2;
+    } else {
+	/* Ok */
+	PUTSTR((char *) Language(200));
+    }
+    Enter(1);
 
     /*
-     * First search for the right archiver program
+     * Search the right archiver program.
      */
-    temp = calloc(PATH_MAX, sizeof(char));
-    stdlog = calloc(PATH_MAX, sizeof(char));
-    errlog = calloc(PATH_MAX, sizeof(char));
-	
     snprintf(temp,   PATH_MAX, "%s/etc/archiver.data", getenv("MBSE_ROOT"));
 	
     if ((fp = fopen(temp, "r")) == NULL) {
@@ -633,64 +602,14 @@ int ScanArchive(char *fn, char *ftype)
     snprintf(temp, PATH_MAX, "%s/%s/tmp", CFG.bbs_usersdir, exitinfo.Name);
     if (getfilecase(temp, fid)) {
 	snprintf(temp, PATH_MAX, "%s/%s/tmp/%s", CFG.bbs_usersdir, exitinfo.Name, fid);
-	snprintf(stdlog, PATH_MAX, "%s/%s/wrk/FILE_ID.DIZ", CFG.bbs_usersdir, exitinfo.Name);
-	if (file_cp(temp, stdlog) == 0) {
+	temp2 = calloc(PATH_MAX, sizeof(char));
+	snprintf(temp2, PATH_MAX, "%s/%s/wrk/FILE_ID.DIZ", CFG.bbs_usersdir, exitinfo.Name);
+	if (file_cp(temp, temp2) == 0) {
 	    Syslog('b', "Copied %s", temp);
 	}
+	free(temp2);
     }
     free(fid);
-
-    snprintf(stdlog, PATH_MAX, "%s/tmp/stdlog%d", getenv("MBSE_ROOT"), mypid);
-    snprintf(errlog, PATH_MAX, "%s/tmp/errlog%d", getenv("MBSE_ROOT"), mypid);
-    snprintf(temp, PATH_MAX, "%s/etc/virscan.data", getenv("MBSE_ROOT"));
-
-    if ((fp = fopen(temp, "r")) != NULL) {
-	fread(&virscanhdr, sizeof(virscanhdr), 1, fp);
-	while (fread(&virscan, virscanhdr.recsize, 1, fp) == 1) {
-
-	    if (virscan.available && (file_exist(virscan.scanner, X_OK) == 0)) {
-				    /* Scanning */		   /* with */
-		snprintf(msg, 81, "%s %s %s %s ", (char *) Language(132), fn, (char *) Language(133), virscan.comment);
-		pout(CFG.TextColourF, CFG.TextColourB, msg);
-
-		Altime(3600);
-		err = execute_str(virscan.scanner, virscan.options, (char *)NULL, (char *)"/dev/null", stdlog, errlog);
-		if (file_size(stdlog)) {
-		    if ((lp = fopen(stdlog, "r"))) {
-			while (fgets(buf, sizeof(buf) -1, lp)) {
-			    Striplf(buf);
-			    Syslog('+', "stdout: \"%s\"", printable(buf, 0));
-			}
-			fclose(lp);
-		    }
-		}
-		if (file_size(errlog)) {
-		    if ((lp = fopen(errlog, "r"))) {
-			while (fgets(buf, sizeof(buf) -1, lp)) {
-			    Striplf(buf);
-			    Syslog('+', "stderr: \"%s\"", printable(buf, 0));
-			}
-			fclose(lp);
-		    }
-		}
-		unlink(stdlog);
-		unlink(errlog);
-		if (err != virscan.error) {
-		    WriteError("VIRUS ALERT: Result %d (%s)", err, virscan.comment);
-		    /* Possible VIRUS found! */
-		    pout(CFG.HiliteF, CFG.HiliteB, (char *) Language(199));
-		    Found = TRUE;
-		} else {
-		    /* Ok */
-		    PUTSTR((char *) Language(200));
-		}
-		Enter(1);
-		Altime(0);
-		Nopper();
-	    }
-	}
-	fclose(fp);
-    }
 
     /*
      * Remove and recreate tmp directory if it was used (or not)
@@ -703,13 +622,8 @@ int ScanArchive(char *fn, char *ftype)
     chdir(cwd);
     free(cwd);
     free(temp);
-    free(stdlog);
-    free(errlog);
 	
-    if (Found)
-	return 2;
-    else
-	return 0;
+    return 0;
 }
 
 
@@ -821,7 +735,9 @@ int ImportFile(char *fn, int Area, int fileid, off_t Size)
 	     */
 	    if (Size) {
 		exitinfo.Uploads++;
+		mib_uploads++;
 		exitinfo.UploadK += (Size / 1024);
+		mib_kbupload += (Size / 1024);
 		exitinfo.UploadKToday += (Size / 1024);
 		Syslog('b', "Uploads %d, Kb %d, Kb today %d", exitinfo.Uploads, exitinfo.UploadK, exitinfo.UploadKToday);
 		/* You have */  /* extra download KBytes. */
@@ -856,7 +772,7 @@ int ImportFile(char *fn, int Area, int fileid, off_t Size)
 int Addfile(char *File, int AreaNum, int fileid)
 {
     FILE    *id, *pPrivate;
-    int	    iDesc = 1, iPrivate = FALSE, GotId = FALSE, lines, i, j;
+    int	    iDesc = 1, GotId = FALSE, lines, i, j;
     char    *Filename, *temp1, *idname = NULL, *Desc[26], *lname, temp[PATH_MAX], msg[81]; 
     struct  stat statfile; 
     struct _fdbarea *fdb_area = NULL;
@@ -1063,7 +979,6 @@ int Addfile(char *File, int AreaNum, int fileid)
 	if ((pPrivate = fopen(temp, "a+")) == NULL)
 	    WriteError("$Can't open %s", temp);
 	else {
-	    iPrivate = TRUE;
 	    fprintf(pPrivate, "****************************************************");
 	    fprintf(pPrivate, "\nUser        : %s", fdb.Uploader);
 	    fprintf(pPrivate, "\nFile        : %s (%s)", fdb.LName, fdb.Name);

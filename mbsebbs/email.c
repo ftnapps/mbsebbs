@@ -1,10 +1,9 @@
 /*****************************************************************************
  *
- * $Id: email.c,v 1.34 2007/09/02 15:04:36 mbse Exp $
  * Purpose ...............: Internet email
  *
  *****************************************************************************
- * Copyright (C) 1997-2007
+ * Copyright (C) 1997-2011
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -54,6 +53,7 @@ extern char		*Message[];
 extern int		Line;
 extern int		do_mailout;
 extern int		LC_Wrote;
+extern unsigned int	mib_posted;
 
 
 /*
@@ -346,6 +346,7 @@ int Save_Email(int IsReply)
 
     ReadExitinfo();
     exitinfo.iPosted++;
+    mib_posted++;
     WriteExitinfo();
 
     do_mailout = TRUE;
@@ -436,7 +437,7 @@ int Read_a_Email(unsigned int Num)
 			 * a reply will be made.
 			 */
 			if (strncasecmp(p, "\001Message-id: ", 13) == 0) {
-			    snprintf(Msg.Msgid, 101, "%s", p+13);
+			    snprintf(Msg.Msgid, sizeof(Msg.Msgid), "%s", p+13);
 			    Syslog('m', "Stored Msgid \"%s\"", Msg.Msgid);
 			}
 			if (Kludges) {
@@ -745,9 +746,9 @@ void Reply_Email(int IsReply)
     Line = 1;
     Msg_New();
 
-    snprintf(Msg.Replyid, 101, "%s", msgid);
-    snprintf(Msg.ReplyTo, 101, "%s", replyto);
-    snprintf(Msg.ReplyAddr, 101, "%s", replyaddr);
+    snprintf(Msg.Replyid, sizeof(Msg.Replyid), "%s", msgid);
+    snprintf(Msg.ReplyTo, sizeof(Msg.ReplyTo), "%s", replyto);
+    snprintf(Msg.ReplyAddr, sizeof(Msg.ReplyAddr), "%s", replyaddr);
 
     /* From     : */
     pout(YELLOW, BLACK, (char *) Language(209));

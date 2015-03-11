@@ -1,10 +1,9 @@
 /****************************************************************************
  *
- * $Id: m_global.c,v 1.87 2007/10/15 11:15:48 mbse Exp $
  * Purpose ...............: Global Setup Program 
  *
  *****************************************************************************
- * Copyright (C) 1997-2007
+ * Copyright (C) 1997-2010
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -878,34 +877,40 @@ void s_intmailcfg(void)
     switch (CFG.newsfeed) {
 	case FEEDINN:	mbse_mvprintw(10, 2, "4. N/A");
         		mbse_mvprintw(11, 2, "5. NNTP node");
-			mbse_mvprintw(12, 2, "6. NNTP m.r.");
-			mbse_mvprintw(13, 2, "7. NNTP user");
-			mbse_mvprintw(14, 2, "8. NNTP pass");
+			mbse_mvprintw(12, 2, "6. NNTP port");
+			mbse_mvprintw(13, 2, "7. NNTP m.r.");
+			mbse_mvprintw(14, 2, "8. NNTP user");
+			mbse_mvprintw(15, 2, "9. NNTP pass");
+			mbse_mvprintw(16, 1, "10. NNTP force");
 			break;
 	case FEEDRNEWS: mbse_mvprintw(10, 2, "4. Path rnews");
 			mbse_mvprintw(11, 2, "5. N/A");
 			mbse_mvprintw(12, 2, "6. N/A");
-                        mbse_mvprintw(13, 2, "7. N/A");
+			mbse_mvprintw(13, 2, "7. N/A");
                         mbse_mvprintw(14, 2, "8. N/A");
+                        mbse_mvprintw(15, 2, "9. N/A");
+			mbse_mvprintw(16, 1, "10. N/A");
 			break;
 	case FEEDUUCP:	mbse_mvprintw(10, 2, "4. UUCP path");
 			mbse_mvprintw(11, 2, "5. UUCP node");
                         mbse_mvprintw(12, 2, "6. N/A");
-                        mbse_mvprintw(13, 2, "7. N/A");
+			mbse_mvprintw(13, 2, "7. N/A");
                         mbse_mvprintw(14, 2, "8. N/A");
+                        mbse_mvprintw(15, 2, "9. N/A");
+			mbse_mvprintw(16, 1, "10. N/A");
 			break;
     }
-    mbse_mvprintw(15, 2, "9. News dupes");
-    mbse_mvprintw(16, 1, "10. Email aka");
-    mbse_mvprintw(17, 1, "11. UUCP aka");
-    mbse_mvprintw(18, 1, "12. Emailmode");
+    mbse_mvprintw(17, 1, "11. Email aka");
+    mbse_mvprintw(18, 1, "12. UUCP aka");
+    mbse_mvprintw(19, 1, "13. Emailmode");
 
-    mbse_mvprintw(13,42, "13. Articles");
-    mbse_mvprintw(14,42, "14. News mode");
-    mbse_mvprintw(15,42, "15. Split at");
-    mbse_mvprintw(16,42, "16. Force at");
-    mbse_mvprintw(17,42, "17. Control ok");
-    mbse_mvprintw(18,42, "18. No regate");
+    mbse_mvprintw(13,48, "14. News dupes");
+    mbse_mvprintw(14,48, "15. Articles");
+    mbse_mvprintw(15,48, "16. News mode");
+    mbse_mvprintw(16,48, "17. Split at");
+    mbse_mvprintw(17,48, "18. Force at");
+    mbse_mvprintw(18,48, "19. Control ok");
+    mbse_mvprintw(19,48, "20. No regate");
 
     set_color(WHITE, BLACK);
     show_str( 7,16,64, CFG.popnode);
@@ -913,9 +918,11 @@ void s_intmailcfg(void)
     show_str( 9,16,64, CFG.smtpnode);
     switch (CFG.newsfeed) {
 	case FEEDINN:	show_str(11,16,64, CFG.nntpnode);
-			show_bool(12,16,   CFG.modereader);
-			show_str(13,16,15, CFG.nntpuser);
-			show_str(14,16,15, (char *)"**************");
+			show_int(12,16,    CFG.nntpport);
+			show_bool(13,16,   CFG.modereader);
+			show_str(14,16,31, CFG.nntpuser);
+			show_str(15,16,31, (char *)"*******************************");
+			show_bool(16,16,   CFG.nntpforceauth);
 			break;
 	case FEEDRNEWS:	show_str(10,16,64, CFG.rnewspath);
 			break;
@@ -924,17 +931,17 @@ void s_intmailcfg(void)
 			break;
     }
 
-    show_int(15,16,    CFG.nntpdupes);
-    show_aka(16,16,    CFG.EmailFidoAka);
-    show_aka(17,16,    CFG.UUCPgate);
-    show_emailmode(18,16, CFG.EmailMode);
+    show_aka(17,16,    CFG.EmailFidoAka);
+    show_aka(18,16,    CFG.UUCPgate);
+    show_emailmode(19,16, CFG.EmailMode);
 
-    show_int( 13,57, CFG.maxarticles);
-    show_newsmode(14,57, CFG.newsfeed);
-    show_int( 15,57, CFG.new_split);
-    show_int( 16,57, CFG.new_force);
-    show_bool(17,57, CFG.allowcontrol);
-    show_bool(18,57, CFG.dontregate);
+    show_int( 13,65, CFG.nntpdupes);
+    show_int( 14,65, CFG.maxarticles);
+    show_newsmode(15,65, CFG.newsfeed);
+    show_int( 16,65, CFG.new_split);
+    show_int( 17,65, CFG.new_force);
+    show_bool(18,65, CFG.allowcontrol);
+    show_bool(19,65, CFG.dontregate);
 }
 
 
@@ -980,51 +987,69 @@ void e_uucp(void)
 
 void e_intmailcfg(void)
 {
-        int     tmp;
+    int     tmp;
 
-        s_intmailcfg();
-        for (;;) {
-                switch(select_menu(18)) {
-                case 0: return;
-                case 1: E_STR(  7,16,64, CFG.popnode,      "The ^FQDN^ of the node where the ^POP3^ server runs.")
-		case 2: E_BOOL( 8,16,    CFG.UsePopDomain, "Use ^user@maildomain^ to login the POP3 server.")
-                case 3: E_STR(  9,16,64, CFG.smtpnode,     "The ^FQDN^ of the node where the ^SMTP^ server runs.")
-		case 4: if (CFG.newsfeed == FEEDRNEWS)
-				strcpy(CFG.rnewspath, edit_pth(10,16,64, CFG.rnewspath, (char *)"The path and filename to the ^rnews^ command.", 0775));
-			if (CFG.newsfeed == FEEDUUCP)
-				strcpy(CFG.rnewspath, edit_pth(10,16,64, CFG.rnewspath, (char *)"The path to the ^uucppublic^ directory.", 0775));
-			break;
-                case 5: if (CFG.newsfeed == FEEDINN)
-				strcpy(CFG.nntpnode, edit_str(11,16,64, CFG.nntpnode, (char *)"The ^FQDN^ of the node where the ^NNTP^ server runs."));
-			if (CFG.newsfeed == FEEDUUCP)
-				strcpy(CFG.nntpnode, edit_str(11,16,64, CFG.nntpnode, (char *)"The ^UUCP^ nodename of the remote UUCP system"));
-			break;
-                case 6: E_BOOL(12,16,    CFG.modereader,   "Does the NNTP server needs the ^Mode Reader^ command.")
-                case 7: E_STR( 13,16,15, CFG.nntpuser,     "The ^Username^ for the NNTP server if needed.")
-                case 8: E_STR( 14,16,15, CFG.nntppass,     "The ^Password^ for the NNTP server if needed.")
-                case 9: E_INT( 15,16,    CFG.nntpdupes,    "The number of ^dupes^ to store in the news articles dupes database.")
-		case 10:tmp = PickAka((char *)"1.12.10", FALSE);
-                        if (tmp != -1)
-                                CFG.EmailFidoAka = CFG.aka[tmp];
-                        s_intmailcfg();
-                        break;
-                case 11:e_uucp();
-                        s_intmailcfg();
-                        break;
-                case 12:CFG.EmailMode = edit_emailmode(18,16, CFG.EmailMode);
-                        s_intmailcfg();
-                        break;
-
-		case 13:E_INT( 13,57, CFG.maxarticles,    "Default maximum ^news articles^ to fetch")
-		case 14:CFG.newsfeed = edit_newsmode(14,57, CFG.newsfeed);
+    s_intmailcfg();
+    for (;;) {
+	switch(select_menu(20)) {
+	    case 0: return;
+	    case 1: E_STR(  7,16,64, CFG.popnode,      "The ^FQDN^ of the node where the ^POP3^ server runs.")
+	    case 2: E_BOOL( 8,16,    CFG.UsePopDomain, "Use ^user@maildomain^ to login the POP3 server.")
+	    case 3: E_STR(  9,16,64, CFG.smtpnode,     "The ^FQDN^ of the node where the ^SMTP^ server runs.")
+	    case 4: if (CFG.newsfeed == FEEDRNEWS)
+			strcpy(CFG.rnewspath, edit_pth(10,16,64, CFG.rnewspath, (char *)"The path and filename to the ^rnews^ command.", 0775));
+		    if (CFG.newsfeed == FEEDUUCP)
+			strcpy(CFG.rnewspath, edit_pth(10,16,64, CFG.rnewspath, (char *)"The path to the ^uucppublic^ directory.", 0775));
+		    break;
+            case 5: if (CFG.newsfeed == FEEDINN)
+			strcpy(CFG.nntpnode, edit_str(11,16,64, CFG.nntpnode, (char *)"The ^FQDN^ of the node where the ^NNTP^ server runs."));
+		    if (CFG.newsfeed == FEEDUUCP)
+			strcpy(CFG.nntpnode, edit_str(11,16,64, CFG.nntpnode, (char *)"The ^UUCP^ nodename of the remote UUCP system"));
+		    break;
+	    case 6: if (CFG.newsfeed == FEEDINN)
+			CFG.nntpport = edit_int(12,16, CFG.nntpport, (char *)"The NNTP ^port^ number to connect to");
+		    if (CFG.nntpport == 0) {
+			CFG.nntpport = 119;
 			s_intmailcfg();
-			break;
-                case 15:E_IRC( 15,57, CFG.new_split, 12, 60, "Gently ^split^ messages after n kilobytes (12..60).")
-                case 16:E_IRC( 16,57, CFG.new_force, 16, 64, "Force ^split^ of messages after n kilobytes (16..64).")
-                case 17:E_BOOL(17,57, CFG.allowcontrol,      "^Allow control^ messages for news to be gated.")
-                case 19:E_BOOL(18,57, CFG.dontregate,        "Don't ^regate^ already gated messages.")
-                }
-        };
+		    }
+		    break;
+            case 7: if (CFG.newsfeed == FEEDINN)
+			CFG.modereader = edit_bool(13,16,    CFG.modereader, (char *)"Does the NNTP server needs the ^Mode Reader^ command.");
+		    break;
+            case 8: if (CFG.newsfeed == FEEDINN)
+			strcpy(CFG.nntpuser, edit_str( 14,16,31, CFG.nntpuser, (char *)"The ^Username^ for the NNTP server if needed."));
+		    break;
+            case 9: if (CFG.newsfeed == FEEDINN) {
+			strcpy(CFG.nntppass, edit_str(15,16,31, CFG.nntppass, (char *)"The ^Password^ for the NNTP server if needed."));
+			s_intmailcfg();
+		    }
+		    break;
+	    case 10:if (CFG.newsfeed == FEEDINN)
+			CFG.nntpforceauth = edit_bool(16,16, CFG.nntpforceauth, (char *)"Force ^authentication^ on connect to the news server");
+		    break;
+	    case 11:tmp = PickAka((char *)"1.12.11", FALSE);
+                    if (tmp != -1)
+                                CFG.EmailFidoAka = CFG.aka[tmp];
+                    s_intmailcfg();
+                    break;
+            case 12:e_uucp();
+                    s_intmailcfg();
+                    break;
+            case 13:CFG.EmailMode = edit_emailmode(19,16, CFG.EmailMode);
+                    s_intmailcfg();
+                    break;
+
+	    case 14:E_INT( 13,65, CFG.nntpdupes,      "The number of ^dupes^ to store in the news articles dupes database.")
+	    case 15:E_INT( 14,65, CFG.maxarticles,    "Default maximum ^news articles^ to fetch")
+	    case 16:CFG.newsfeed = edit_newsmode(15,65, CFG.newsfeed);
+		    s_intmailcfg();
+		    break;
+            case 17:E_IRC( 16,65, CFG.new_split, 12, 60, "Gently ^split^ messages after n kilobytes (12..60).")
+            case 18:E_IRC( 17,65, CFG.new_force, 16, 64, "Force ^split^ of messages after n kilobytes (16..64).")
+            case 19:E_BOOL(18,65, CFG.allowcontrol,      "^Allow control^ messages for news to be gated.")
+            case 20:E_BOOL(19,65, CFG.dontregate,        "Don't ^regate^ already gated messages.")
+	}
+    }
 }
 
 
@@ -1335,7 +1360,7 @@ void e_mailer(void)
 	show_logl( 7,23,   CFG.cico_loglevel);
 	show_str(  8,23,20,CFG.IP_Phone);
 	show_str(  9,23,30,CFG.IP_Flags);
-	show_int( 10,23,   CFG.IP_Speed);
+	show_uint(10,23,   CFG.IP_Speed);
 	show_int( 11,23,   CFG.timeoutreset);
 	show_int( 12,23,   CFG.timeoutconnect);
 	show_int( 13,23,   CFG.dialdelay);
@@ -1358,7 +1383,7 @@ void e_mailer(void)
 	    case 1: E_LOGL(CFG.cico_loglevel, "1.14.1", s_mailer)
 	    case 2: E_STR(  8,23,20,CFG.IP_Phone,       "The mailer ^TCP/IP \"phone\" number^ for this system, empty is no TCP/IP")
 	    case 3: E_STR(  9,23,30,CFG.IP_Flags,       "The mailer ^TCP/IP capability flags^ for this system")
-	    case 4: E_INT( 10,23,   CFG.IP_Speed,       "The mailer ^TCP/IP linespeed^ for this system")
+	    case 4: E_UINT(10,23,   CFG.IP_Speed,       "The mailer ^TCP/IP linespeed^ for this system")
 	    case 5: E_INT( 11,23,   CFG.timeoutreset,   "The modem ^reset timeout^ in seconds")
 	    case 6: E_INT( 12,23,   CFG.timeoutconnect, "The modem ^wait for connect timeout^ in seconds")
 	    case 7: E_INT( 13,23,   CFG.dialdelay,      "The ^random dialdelay^ in seconds ((^n^ <= delay) and (^n^ > (delay / 10)))")
@@ -1502,6 +1527,23 @@ void global_menu(void)
 #endif
 	CFG.is_upgraded = TRUE;
 	Syslog('+', "Main config, upgraded execute settings");
+    }
+
+    if (strlen(CFG.xnntpuser) && ! strlen(CFG.nntpuser)) {
+	Syslog('+', "Main config, nntp username length increased");
+	strncpy(CFG.nntpuser, CFG.xnntpuser, 16);
+	memset(&CFG.xnntpuser, 0, sizeof(CFG.xnntpuser));
+    }
+
+    if (strlen(CFG.xnntppass) && ! strlen(CFG.nntppass)) {
+	Syslog('+', "Main config, nntp password length increased");
+	strncpy(CFG.nntppass, CFG.xnntppass, 16);
+	memset(&CFG.xnntppass, 0, sizeof(CFG.xnntppass));
+    }
+
+    if (! CFG.nntpport) {
+	Syslog('+', "Main config, set default nntp port 119");
+	CFG.nntpport = 119;
     }
 
     for (;;) {
@@ -1682,8 +1724,8 @@ int global_doc(FILE *fp, FILE *toc, int page)
 	return page;
 
     page = newpage(fp, page);
-    addtoc(fp, toc, 1, 0, page, (char *)"Global system setup");
-    addtoc(fp, toc, 1, 1, page, (char *)"Host system information");
+    addtoc(fp, toc, 0, 0, page, (char *)"System information");
+    addtoc(fp, toc, 0, 1, page, (char *)"System information");
 
     wp = open_webdoc((char *)"global.html", (char *)"Global Configuration", NULL);
     fprintf(wp, "<A HREF=\"index.html\">Main</A>\n");
@@ -1744,12 +1786,14 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "</TABLE>\n");
     fprintf(wp, "<A HREF=\"#_top\">Top</A>\n");
     fprintf(wp, "<HR>\n");
-    
+ 
+    addtoc(fp, toc, 1, 0, page, (char *)"Global system setup");
+    addtoc(fp, toc, 1, 1, page, (char *)"System fidonet addresses");
+
     fprintf(wp, "<A NAME=\"_akas\"></A><H3>System fidonet addresses</H3>\n");
     fprintf(wp, "<TABLE width='600' border='0' cellspacing='0' cellpadding='2'>\n");
     fprintf(wp, "<COL width='30%%'><COL width='70%%'>\n");
     fprintf(wp, "<TBODY>\n");
-    addtoc(fp, toc, 1, 2, page, (char *)"System fidonet addresses");
     for (i = 0; i < 40; i++) {
 	if (CFG.akavalid[i]) {
 	    fprintf(fp, "      Aka %2d    %s\n", i+1, aka2str(CFG.aka[i]));
@@ -1781,7 +1825,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "</TABLE>\n");
     fprintf(wp, "<A HREF=\"#_top\">Top</A>\n");
     fprintf(wp, "<HR>\n");
-    addtoc(fp, toc, 1, 3, page, (char *)"Registration information");
+    addtoc(fp, toc, 1, 2, page, (char *)"Registration information");
     fprintf(fp, "      System name      %s\n", CFG.bbs_name);
     fprintf(fp, "      Mail domain      %s\n", CFG.sysdomain);
     fprintf(fp, "      My FQDN          %s\n", CFG.myfqdn);
@@ -1808,7 +1852,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "</TABLE>\n");
     fprintf(wp, "<A HREF=\"#_top\">Top</A>\n");
     fprintf(wp, "<HR>\n");
-    addtoc(fp, toc, 1, 4, page, (char *)"Global filenames");
+    addtoc(fp, toc, 1, 3, page, (char *)"Global filenames");
     fprintf(fp, "      System logfile   %s\n", CFG.logfile);
     fprintf(fp, "      Error logfile    %s\n", CFG.error_log);
     fprintf(fp, "      Debug logfile    %s\n", CFG.debuglog);
@@ -1841,7 +1885,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "</TABLE>\n");
     fprintf(wp, "<A HREF=\"#_top\">Top</A>\n");
     fprintf(wp, "<HR>\n");
-    addtoc(fp, toc, 1, 5, page, (char *)"Pathnames");
+    addtoc(fp, toc, 1, 4, page, (char *)"Pathnames");
     fprintf(fp, "      Users homedirs   %s\n", CFG.bbs_usersdir);
     fprintf(fp, "      Nodelists        %s\n", CFG.nodelists);
     fprintf(fp, "      Unsafe inbound   %s\n", CFG.inbound);
@@ -1896,7 +1940,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "<A HREF=\"#_top\">Top</A>\n");
     fprintf(wp, "<HR>\n");
     page = newpage(fp, page);
-    addtoc(fp, toc, 1, 6, page, (char *)"Global settings");
+    addtoc(fp, toc, 1, 5, page, (char *)"Global settings");
     fprintf(fp, "      Show new msgarea %s\n", getboolean(CFG.NewAreas));
     fprintf(fp, "      Exclude sysop    %s\n", getboolean(CFG.exclude_sysop));
     fprintf(fp, "      Show connect     %s\n", getboolean(CFG.iConnectString));
@@ -1941,7 +1985,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "<A HREF=\"#_top\">Top</A>\n");
     fprintf(wp, "<HR>\n");
     page = newpage(fp, page);
-    addtoc(fp, toc, 1, 7, page, (char *)"Users flag descriptions");
+    addtoc(fp, toc, 1, 6, page, (char *)"Users flag descriptions");
     fprintf(fp, "               1    1    2    2    3 3\n");
     fprintf(fp, "      1   5    0    5    0    5    0 2\n");
     fprintf(fp, "      --------------------------------\n");
@@ -1980,7 +2024,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "<A HREF=\"#_top\">Top</A>\n");
     fprintf(wp, "<HR>\n");
     page = newpage(fp, page);
-    addtoc(fp, toc, 1, 8, page, (char *)"New users defaults");
+    addtoc(fp, toc, 1, 7, page, (char *)"New users defaults");
     fprintf(fp, "      Access level      %s\n", get_secstr(CFG.newuser_access));
     fprintf(fp, "      Cap. username     %s\n", getboolean(CFG.iCapUserName));
     fprintf(fp, "      Ask Sex           %s\n", getboolean(CFG.iSex));
@@ -2016,7 +2060,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "</TABLE>\n");
     fprintf(wp, "<A HREF=\"#_top\">Top</A>\n");
     fprintf(wp, "<HR>\n");
-    addtoc(fp, toc, 1, 9, page, (char *)"Text colors");
+    addtoc(fp, toc, 1, 8, page, (char *)"Text colors");
     fprintf(fp, "      Normal text      %s on %s\n", get_color(CFG.TextColourF), get_color(CFG.TextColourB));
     fprintf(fp, "      Underline text   %s on %s\n", get_color(CFG.UnderlineColourF), get_color(CFG.UnderlineColourB));
     fprintf(fp, "      Input text       %s on %s\n", get_color(CFG.InputColourF), get_color(CFG.InputColourB));
@@ -2045,7 +2089,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "<A HREF=\"#_top\">Top</A>\n");
     fprintf(wp, "<HR>\n");
     page = newpage(fp, page);
-    addtoc(fp, toc, 1, 10, page, (char *)"Sysop paging");
+    addtoc(fp, toc, 1, 9, page, (char *)"Sysop paging");
     fprintf(fp, "      Page length        %d seconds\n", CFG.iPageLength);
     fprintf(fp, "      Page times         %d\n", CFG.iMaxPageTimes);
     fprintf(fp, "      Sysop msg area     %d\n", CFG.iSysopArea);
@@ -2075,7 +2119,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "</TABLE>\n");
     fprintf(wp, "<A HREF=\"#_top\">Top</A>\n");
     fprintf(wp, "<HR>\n");    
-    addtoc(fp, toc, 1, 11, page, (char *)"Fileecho processing");
+    addtoc(fp, toc, 1, 10, page, (char *)"Fileecho processing");
     fprintf(fp, "      Keep days on hold  %d\n", CFG.tic_days);
     fprintf(fp, "      Hatch password     %s\n", CFG.hatchpasswd);
     fprintf(fp, "      Max. systems       %d\n", CFG.tic_systems);
@@ -2116,7 +2160,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "<A HREF=\"#_top\">Top</A>\n");
     fprintf(wp, "<HR>\n");
     page = newpage(fp, page);
-    addtoc(fp, toc, 1, 12, page, (char *)"Fidonet Mail and Echomail processing");
+    addtoc(fp, toc, 1, 11, page, (char *)"Fidonet Mail and Echomail processing");
     fprintf(fp, "      Max .pkt size      %d Kb.\n", CFG.maxpktsize);
     fprintf(fp, "      Max archive size   %d Kb.\n", CFG.maxarcsize);
     fprintf(fp, "      Bad mail board     %s\n", CFG.badboard);
@@ -2148,7 +2192,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     add_webtable(wp, (char *)"POP3 user@domain login", getboolean(CFG.UsePopDomain));
     add_webtable(wp, (char *)"SMTP host", CFG.smtpnode);
     add_webtable(wp, (char *)"News transfermode", getnewsmode(CFG.newsfeed));
-    addtoc(fp, toc, 1, 13, page, (char *)"Internet Mail and News processing");
+    addtoc(fp, toc, 1, 12, page, (char *)"Internet Mail and News processing");
     fprintf(fp, "      Split messages at  %d KBytes\n", CFG.new_split);
     fprintf(fp, "      Force split at     %d KBytes\n", CFG.new_force);
     fprintf(fp, "      ISP Email Mode     %s\n", getemailmode(CFG.EmailMode));
@@ -2159,14 +2203,17 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(fp, "      SMTP host          %s\n", CFG.smtpnode);
     fprintf(fp, "      News transfermode  %s\n", getnewsmode(CFG.newsfeed));
     switch (CFG.newsfeed) {
-	case FEEDINN:	fprintf(fp, "      NNTP host          %s\n", CFG.nntpnode);
+	case FEEDINN:	fprintf(fp, "      NNTP host          %s:%d\n", CFG.nntpnode, CFG.nntpport);
 			fprintf(fp, "      NNTP mode reader   %s\n", getboolean(CFG.modereader));
 			fprintf(fp, "      NNTP username      %s\n", CFG.nntpuser);
 			fprintf(fp, "      NNTP password      %s\n", getboolean(strlen(CFG.nntppass)));
+			fprintf(fp, "      NNTP force auth    %s\n", getboolean(CFG.nntpforceauth));
 			add_webtable(wp, (char *)"NNTP host", CFG.nntpnode);
+			add_webdigit(wp, (char *)"NNTP port", CFG.nntpport);
 			add_webtable(wp, (char *)"NNTP mode reader", getboolean(CFG.modereader));
 			add_webtable(wp, (char *)"NNTP username", CFG.nntpuser);
 			add_webtable(wp, (char *)"NNTP password", CFG.nntppass);
+			add_webtable(wp, (char *)"NNTP force auth", getboolean(CFG.nntpforceauth));
 			break;
 	case FEEDRNEWS:	fprintf(fp, "      Path to rnews      %s\n", CFG.rnewspath);
 			add_webtable(wp, (char *)"Path to rnews", CFG.rnewspath);
@@ -2197,7 +2244,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     add_webdigit(wp, (char *)"Max. newfile groups", CFG.new_groups);
     add_webtable(wp, (char *)"WWW logfile", CFG.www_logfile);
     add_webtable(wp, (char *)"FTP logfile", CFG.ftp_logfile);
-    addtoc(fp, toc, 1, 14, page, (char *)"Newfile reports");
+    addtoc(fp, toc, 1, 13, page, (char *)"Newfile reports");
     fprintf(fp, "      New files days     %d\n", CFG.newdays);
     fprintf(fp, "      Highest sec. level %s\n", get_secstr(CFG.security));
     fprintf(fp, "      Max. newfile grps  %d\n", CFG.new_groups);
@@ -2233,7 +2280,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "</TBODY>\n");
     fprintf(wp, "</TABLE>\n");
     page = newpage(fp, page);
-    addtoc(fp, toc, 1, 15, page, (char *)"Mailer setup");
+    addtoc(fp, toc, 1, 14, page, (char *)"Mailer setup");
     p = getloglevel(CFG.cico_loglevel);
     fprintf(fp, "      Mailer loglevel    %s\n",  p);
     free(p);
@@ -2287,7 +2334,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "<A HREF=\"#_top\">Top</A>\n");
     fprintf(wp, "<HR>\n");
     page = newpage(fp, page);
-    addtoc(fp, toc, 1, 17, page, (char *)"WWW server setup");
+    addtoc(fp, toc, 1, 15, page, (char *)"WWW server setup");
     fprintf(fp, "      HTML root            %s\n", CFG.www_root);
     fprintf(fp, "      Link to FTP base     %s\n", CFG.www_link2ftp);
     fprintf(fp, "      Webserver URL        %s\n", CFG.www_url);
@@ -2309,7 +2356,7 @@ int global_doc(FILE *fp, FILE *toc, int page)
     fprintf(wp, "</TABLE>\n");
     fprintf(wp, "<A HREF=\"#_top\">Top</A>\n");
     page = newpage(fp, page);
-    addtoc(fp, toc, 1,18, page, (char *)"Manager flag descriptions");
+    addtoc(fp, toc, 1,16, page, (char *)"Manager flag descriptions");
     fprintf(fp, "               1    1    2    2    3 3\n");
     fprintf(fp, "      1   5    0    5    0    5    0 2\n");
     fprintf(fp, "      --------------------------------\n");

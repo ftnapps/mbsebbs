@@ -1,10 +1,10 @@
 /*****************************************************************************
  *
- * $Id: openfile.c,v 1.13 2005/10/11 20:49:46 mbse Exp $
+ * $Id: openfile.c,v 1.14 2008/11/26 22:01:01 mbse Exp $
  * Purpose ...............: Fidonet mailer
  *
  *****************************************************************************
- * Copyright (C) 1997-2005
+ * Copyright (C) 1997-2008
  *   
  * Michiel Broek		FIDO:	2:280/2802
  * Beekmansbos 10
@@ -61,7 +61,7 @@ FILE *openfile(char *fname, time_t remtime, off_t remsize, off_t *resofs, int(*r
 
     strcpy(ctt,date(remtime));
 
-    Syslog('s', "openfile(\"%s\",%s,%lu,...)", MBSE_SS(fname), MBSE_SS(ctt), (unsigned int)remsize);
+    Syslog('s', "openfile(\"%s\",%s,%lu,...)", MBSE_SS(fname), ctt, (unsigned int)remsize);
 
     if ((fname == NULL) || (fname[0] == '\0')) {
 	snprintf(tmpfname,16,"%08x.pkt",sequencer());

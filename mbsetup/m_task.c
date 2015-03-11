@@ -1,10 +1,10 @@
 /*****************************************************************************
  *
- * $Id: m_task.c,v 1.16 2005/10/11 20:49:49 mbse Exp $
+ * $Id: m_task.c,v 1.17 2008/02/28 22:05:14 mbse Exp $
  * Purpose ...............: Setup TaskManager.
  *
  *****************************************************************************
- * Copyright (C) 1997-2005
+ * Copyright (C) 1997-2008
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -216,7 +216,7 @@ int task_doc(FILE *fp, FILE *toc, int page)
     close_webdoc(wp);
 					
     page = newpage(fp, page);
-    addtoc(fp, toc, 16, 0, page, (char *)"Task manager");
+    addtoc(fp, toc, 18, 0, page, (char *)"Task manager");
 
     fprintf(fp, "\n");
     fprintf(fp, "     Command on mailout     %s\n", TCFG.cmd_mailout);

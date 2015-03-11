@@ -1,10 +1,10 @@
 /*****************************************************************************
  *
- * $Id: m_route.c,v 1.12 2005/10/11 20:49:49 mbse Exp $
+ * $Id: m_route.c,v 1.13 2008/02/28 22:05:14 mbse Exp $
  * Purpose ...............: Routing Setup
  *
  *****************************************************************************
- * Copyright (C) 1997-2005
+ * Copyright (C) 1997-2008
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -523,7 +523,7 @@ int route_doc(FILE *fp, FILE *toc, int page)
     }
 
     page = newpage(fp, page);
-    addtoc(fp, toc, 12, 0, page, (char *)"Routing table");
+    addtoc(fp, toc, 19, 0, page, (char *)"Routing table");
     j = 1;
 
     fprintf(fp, "\n\n");

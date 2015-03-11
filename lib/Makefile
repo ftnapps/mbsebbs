@@ -1,6 +1,6 @@
 # Makefile for the library files.
 # Copyright (c) 1997, 2001 by M. Broek.
-# $Id: Makefile,v 1.52 2007/08/25 14:24:05 mbse Exp $
+# $Id: Makefile,v 1.53 2008/02/17 16:10:18 mbse Exp $
 
 include ../Makefile.global
 
@@ -11,14 +11,14 @@ COMMON_SRCS	= clcomm.c client.c crc.c semafore.c signame.c charset.c remask.c \
 		  dostran.c ftnmsg.c mbfile.c nodelock.c rawio.c strcasestr.c \
 		  execute.c expipe.c getheader.c noderecord.c rfcaddr.c strutil.c \
 		  faddr.c gmtoffset.c packet.c rfcdate.c term.c endian.c timers.c \
-		  pidinfo.c tmpwork.c
+		  pidinfo.c tmpwork.c virscan.c
 COMMON_OBJS	= clcomm.o client.o crc.o semafore.o signame.o charset.o remask.o \
 		  ftscprod.o attach.o falists.o hdr.o parsedate.o rfcmsg.o unpacker.o \
 		  batchrd.o ftn.o pktname.o mangle.o sectest.o proglock.o rearc.o \
 		  dostran.o ftnmsg.o mbfile.o nodelock.o rawio.o strcasestr.o magic.o \
 		  execute.o expipe.o getheader.o noderecord.o rfcaddr.o strutil.o \
 		  faddr.o gmtoffset.o packet.o rfcdate.o term.o endian.o timers.o \
-		  pidinfo.o tmpwork.o
+		  pidinfo.o tmpwork.o virscan.o
 COMMON_HDRS	= mbselib.h
 NODELIST_SRCS	= nodelist.c
 NODELIST_OBJS	= nodelist.o
@@ -42,7 +42,7 @@ OBJS		= ${COMMON_OBJS} ${DBASE_OBJS} ${MSGBASE_OBJS} ${MBINET_OBJS} \
 		  ${DIESEL_OBJS} ${NODELIST_OBJS} ${CHC_OBJS}
 HDRS		= ${COMMON_HDRS} ${DBASE_HDRS} ${MSGBASE_HDRS} ${MBINET_HDRS} \
 		  ${DIESEL_HDRS} ${NODELIST_HDRS} ${CHC_HDRS} ${OTHER_HDRS}
-OTHER		= Makefile README ftscprod.010 mkprod.awk \
+OTHER		= Makefile README ftscprod.012 mkprod.awk \
 		  README.diesel README.macro Diesel.doc nodelist.conf
 TARGET		= libmbse.a libdbase.a libmsgbase.a libmbinet.a libdiesel.a \
 		  libnodelist.a
@@ -158,6 +158,7 @@ endian.o: ../config.h mbselib.h
 timers.o: ../config.h mbselib.h
 pidinfo.o: ../config.h mbselib.h
 tmpwork.o: ../config.h mbselib.h
+virscan.o: ../config.h mbselib.h
 dbcfg.o: ../config.h mbselib.h mbse.h users.h mbsedb.h
 dbdupe.o: ../config.h mbselib.h mbse.h users.h mbsedb.h
 dbftn.o: ../config.h mbselib.h users.h mbsedb.h
@@ -166,7 +167,7 @@ dbnode.o: ../config.h mbselib.h users.h mbsedb.h
 dbtic.o: ../config.h mbselib.h users.h mbsedb.h
 dbuser.o: ../config.h mbselib.h users.h mbsedb.h
 dbfdb.o: ../config.h mbselib.h users.h mbsedb.h
-jammsg.o: ../config.h mbselib.h msgtext.h msg.h jam.h jammsg.h
+jammsg.o: ../config.h mbselib.h msgtext.h msg.h jam.h jammsg.h users.h
 msg.o: ../config.h mbselib.h msgtext.h msg.h jammsg.h
 msgtext.o: ../config.h mbselib.h msgtext.h msg.h
 nntp.o: ../config.h mbselib.h mbinet.h

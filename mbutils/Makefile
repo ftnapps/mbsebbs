@@ -1,17 +1,19 @@
 # Makefile for MBSE BBS under Linux
 # Copyright (c) 1998, 2004 by M. Broek.
-# $Id: Makefile,v 1.7 2007/05/27 12:50:48 mbse Exp $
+# $Id: Makefile,v 1.8 2008/02/10 20:07:16 mbse Exp $
 
 include ../Makefile.global
 
-SRCS		= mball.c dlcount.c mblang.c mbstat.c mbtoberep.c mbuser.c mbbw.c
-HDRS		= mball.h dlcount.h mbstat.h mbuser.h
+SRCS		= mball.c dlcount.c mblang.c mbstat.c mbsnmp.c mbtoberep.c mbuser.c mbbw.c
+HDRS		= mball.h dlcount.h mbstat.h mbsnmp.h mbuser.h
 MBALL_OBJS	= mball.o dlcount.o
 MBALL_LIBS	= ../lib/libmbse.a ../lib/libdbase.a
 MBLANG_OBJS	= mblang.o
 MBLANG_LIBS	= ../lib/libmbse.a ../lib/libdbase.a
 MBSTAT_OBJS	= mbstat.o
 MBSTAT_LIBS	= ../lib/libmbse.a ../lib/libdbase.a
+MBSNMP_OBJS	= mbsnmp.o
+MBSNMP_LIBS	= ../lib/libmbse.a ../lib/libdbase.a
 MBTOBE_OBJS	= mbtoberep.o
 MBTOBE_LIBS	= ../lib/libmbse.a ../lib/libdbase.a
 MBUSER_OBJS	= mbuser.o
@@ -19,7 +21,7 @@ MBUSER_LIBS	= ../lib/libmbse.a ../lib/libdbase.a
 MBBW_OBJS	= mbbw.o
 MBBW_LIBS	= ../lib/libmbse.a ../lib/libdbase.a
 OTHER		= Makefile
-TARGET		= mball mblang mbstat mbtoberep mbuser mbbw
+TARGET		= mball mblang mbstat mbsnmp mbtoberep mbuser mbbw
 
 #############################################################################################################
 
@@ -40,6 +42,9 @@ mblang:		${MBLANG_OBJS} ${MBLANG_LIBS}
 mbstat:		${MBSTAT_OBJS} ${MBSTAT_LIBS}
 		${CC} -o mbstat ${MBSTAT_OBJS} ${LDFLAGS} ${LIBS} ${MBSTAT_LIBS}
 
+mbsnmp:		${MBSNMP_OBJS} ${MBSNMP_LIBS}
+		${CC} -o mbsnmp ${MBSNMP_OBJS} ${LDFLAGS} ${LIBS} ${MBSNMP_LIBS}
+
 mbtoberep:	${MBTOBE_OBJS} ${MBTOBE_LIBS}
 		${CC} -o mbtoberep ${MBTOBE_OBJS} ${LDFLAGS} ${LIBS} ${MBTOBE_LIBS}
 
@@ -56,6 +61,7 @@ install:	all
 		${INSTALL} -c -s -o ${OWNER} -g ${GROUP}  -m 0700 mball     ${BINDIR}
 		${INSTALL} -c -s -o ${OWNER} -g ${GROUP}  -m 0700 mblang    ${BINDIR}
 		${INSTALL} -c -s -o ${OWNER} -g ${GROUP}  -m 0750 mbstat    ${BINDIR}
+		${INSTALL} -c -s -o ${OWNER} -g ${GROUP}  -m 4750 mbsnmp    ${BINDIR}
 		${INSTALL} -c -s -o ${OWNER} -g ${GROUP}  -m 0700 mbtoberep ${BINDIR}
 		${INSTALL} -c -s -o ${ROWNER} -g ${RGROUP} -m 6711 mbuser    ${BINDIR}
 		${INSTALL} -c -s -o ${OWNER} -g ${GROUP}  -m 0750 mbbw      ${BINDIR}
@@ -94,6 +100,7 @@ mball.o: ../config.h ../lib/mbselib.h ../lib/mbse.h ../lib/users.h ../lib/mbsedb
 dlcount.o: ../config.h ../lib/mbselib.h ../lib/users.h ../lib/mbsedb.h dlcount.h
 mblang.o: ../config.h ../lib/mbselib.h
 mbstat.o: ../config.h ../lib/mbselib.h ../lib/users.h ../lib/mbsedb.h mbstat.h
+mbsnmp.o: ../config.h ../lib/mbselib.h ../lib/users.h ../lib/mbsedb.h mbsnmp.h
 mbtoberep.o: ../config.h ../lib/mbselib.h
 mbuser.o: ../config.h ../lib/mbselib.h ../lib/users.h ../lib/mbsedb.h mbuser.h
 mbbw.o: ../config.h ../lib/mbselib.h ../lib/bluewave.h

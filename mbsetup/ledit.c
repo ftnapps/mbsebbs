@@ -1,10 +1,9 @@
 /*****************************************************************************
  *
- * $Id: ledit.c,v 1.61 2007/10/14 13:27:55 mbse Exp $
  * Purpose ...............: Line Editor
  *
  *****************************************************************************
- * Copyright (C) 1997-2007
+ * Copyright (C) 1997-2011
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -69,7 +68,6 @@ int yes_no(char *T_)
 void errmsg(const char *format, ...)
 {
 	char	*t;
-	int	ch;
 	va_list	va_ptr;
 
 	t = calloc(256, sizeof(char));
@@ -84,7 +82,7 @@ void errmsg(const char *format, ...)
 	clrtoeol();
 	mbse_mvprintw(LINES - 3, 6, t);
 	putchar(7);
-	ch = readkey(LINES - 3, strlen(t) + 6, LIGHTGRAY, BLACK);
+	readkey(LINES - 3, strlen(t) + 6, LIGHTGRAY, BLACK);
 	mbse_locate(LINES - 3, 6);
 	clrtoeol();
 	free(t);
@@ -105,7 +103,7 @@ int check_free(void)
 	    Syslog('+', "The BBS is closed");
 	    return TRUE;
 	} else {
-	    errmsg("Cannon continue, failed to close the bbs");
+	    errmsg("Cannot continue, failed to close the bbs");
 	    return FALSE;
 	}
     }
@@ -1070,6 +1068,36 @@ int edit_int(int y, int x, int val, char *help)
 
 
 
+void show_uint(int y, int x, unsigned int val)
+{
+    mbse_mvprintw(y, x, (char *)"          ");
+    mbse_mvprintw(y, x, (char *)"%u", val);
+}
+
+
+
+unsigned int edit_uint(int y, int x, unsigned int val, char *help)
+{
+    static char s[11], line[11];
+
+    while (TRUE) {
+    	showhelp(help);
+    	memset((char *)s, 0, sizeof(s));
+    	snprintf(line, 11, "%u", val);
+    	strcpy(s, edit_field(y, x, 10, '9', line));
+    	set_color(WHITE, BLACK);
+   	show_uint(y, x, atoi(s));
+    	fflush(stdout);
+        if ((atoll(s) >= 0) && (atoll(s) <= 4294967295U))
+	    break;
+	errmsg("Value must be between 0 and 4294967295");
+    }
+
+    return atoll(s);
+}
+
+
+
 int edit_int_range(int y, int x, int val, int min, int max, char *help)
 {
     static char s[7], line[7];
@@ -1998,6 +2026,50 @@ int edit_sessiontype(int y, int x, int val)
     } while (ch != KEY_ENTER && ch != '\012');
     set_color(WHITE, BLACK);
     show_sessiontype(y, x, val);
+    return val;
+}
+
+
+
+char *get_scannertype(int val)
+{
+    switch (val) {
+	case SCAN_EXTERN:   return (char *)"External commandline ";
+	case CLAM_STREAM:   return (char *)"ClamAV stream scanner";
+	case FP_STREAM:     return (char *)"F-Prot stream scanner";
+	default:            return NULL;
+    }
+}
+
+
+
+void show_scannertype(int y, int x, int val)
+{
+    mbse_mvprintw(y, x, get_scannertype(val));
+}
+
+
+
+int edit_scannertype(int y, int x, int val)
+{
+    int ch;
+
+    showhelp((char *)"Toggle ^Scanner type^ with spacebar, press <Enter> whene done.");
+    do {
+	set_color(YELLOW, BLUE);
+	show_scannertype(y, x, val);
+
+	ch = readkey(y, x, YELLOW, BLUE);
+
+	if (ch == ' ') {
+	    if (val < FP_STREAM)
+		val++;
+	    else
+		val = SCAN_EXTERN;
+	}
+    } while (ch != KEY_ENTER && ch != '\012');
+    set_color(WHITE, BLACK);
+    show_scannertype(y, x, val);
     return val;
 }
 

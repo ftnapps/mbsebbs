@@ -1,10 +1,10 @@
 /*****************************************************************************
  *
- * $Id: bopenfile.c,v 1.3 2005/10/11 20:49:46 mbse Exp $
+ * $Id: bopenfile.c,v 1.4 2008/11/26 22:01:01 mbse Exp $
  * Purpose ...............: Fidonet mailer
  *
  *****************************************************************************
- * Copyright (C) 1997-2005
+ * Copyright (C) 1997-2008
  *   
  * Michiel Broek		FIDO:	2:280/2802
  * Beekmansbos 10
@@ -55,7 +55,7 @@ FILE *bopenfile(char *fname, time_t remtime, off_t remsize, off_t *resofs)
 
     strcpy(ctt,date(remtime));
 
-    Syslog('b', "Binkp: bopenfile(\"%s\",%s,%u)", MBSE_SS(fname), MBSE_SS(ctt), (unsigned int)remsize);
+    Syslog('b', "Binkp: bopenfile(\"%s\",%s,%u)", MBSE_SS(fname), ctt, (unsigned int)remsize);
 
     if ((fname == NULL) || (fname[0] == '\0')) {
 	Syslog('+', "Binkp: bopenfile fname=NULL");

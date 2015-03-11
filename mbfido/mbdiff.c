@@ -1,11 +1,11 @@
 /*****************************************************************************
  *
- * $Id: mbdiff.c,v 1.31 2007/09/02 11:17:32 mbse Exp $
+ * $Id: mbdiff.c,v 1.32 2008/11/26 22:12:28 mbse Exp $
  * Purpose ...............: Nodelist diff processor
  * Original ideas ........: Eugene G. Crosser.
  * 
  *****************************************************************************
- * Copyright (C) 1997-2007
+ * Copyright (C) 1997-2008
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -279,7 +279,7 @@ int main(int argc, char **argv)
 	else
 	    cmd = xstrcpy(archiver.munarc);
 
-	if ((cmd == NULL) || (cmd == "")) {
+	if ((cmd == NULL) || (strlen(cmd) == 0)) {
 	    show_log = TRUE;
 	    free(cmd);
 	    free(onl);

@@ -1,10 +1,9 @@
 /*****************************************************************************
  *
- * $Id: mbfadopt.c,v 1.27 2006/01/06 20:06:57 mbse Exp $
  * Purpose: File Database Maintenance - Adopt file
  *
  *****************************************************************************
- * Copyright (C) 1997-2006
+ * Copyright (C) 1997-2011
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -32,7 +31,6 @@
 #include "../lib/mbselib.h"
 #include "../lib/users.h"
 #include "../lib/mbsedb.h"
-#include "virscan.h"
 #include "mbfutil.h"
 #include "mbflist.h"
 
@@ -48,9 +46,9 @@ void AdoptFile(int Area, char *File, char *Description)
     FILE		*fp;
     char		*temp, *temp2, *tmpdir, *unarc, *pwd, *lname, *fileid;
     char		Desc[256], TDesc[256];
-    int			IsArchive = FALSE, MustRearc = FALSE, UnPacked = FALSE;
+    int			MustRearc = FALSE, UnPacked = FALSE;
     int			IsVirus = FALSE, File_Id = FALSE;
-    int			i, j, k, lines = 0, File_id_cnt = 0, rc;
+    int			i, j, k, lines = 0, File_id_cnt = 0;
     struct FILE_record	f_db;
 
     Syslog('f', "Adopt(%d, %s, %s)", Area, MBSE_SS(File), MBSE_SS(Description));
@@ -86,59 +84,26 @@ void AdoptFile(int Area, char *File, char *Description)
 	}
 
 	snprintf(temp, PATH_MAX, "%s/%s", pwd, File);
-	if ((unarc = unpacker(File)) == NULL) {
-	    Syslog('+', "No known archive: %s", File);
-	    snprintf(temp2, PATH_MAX, "%s/tmp/arc%d/%s", getenv("MBSE_ROOT"), (int)getpid(), File);
-	    if ((rc = file_cp(temp, temp2))) {
-		WriteError("Can't copy file to %s, %s", temp2, strerror(rc));
-		if (!do_quiet)
-		    printf("\nCan't copy file to %s, %s\n", temp2, strerror(rc));
-		die(MBERR_INIT_ERROR);
-	    } else {
-		if (do_novir == FALSE) {
-		    if (!do_quiet) {
-			printf("Virscan   \b\b\b\b\b\b\b\b\b\b");
-			fflush(stdout);
-		    }
-		    IsVirus = VirScan(tmpdir);
-		} else {
-		    IsVirus = FALSE;
-		}
-		if (IsVirus) {
-		    clean_tmpwork();
-		    chdir(pwd);
-		    WriteError("Virus found");
-		    if (!do_quiet)
-			printf("\nVirus found\n");
-		    die(MBERR_VIRUS_FOUND);
-		}
+	if (do_novir == FALSE) {
+	    if (!do_quiet) {
+		printf("Virscan   \b\b\b\b\b\b\b\b\b\b");
+		fflush(stdout);
 	    }
-	} else {
-	    IsArchive = TRUE;
+	    IsVirus = VirScanFile(temp);
+	}
+	if (IsVirus) {
+	    WriteError("Virus found");
+	    if (!do_quiet)
+		printf("\nVirus found\n");
+	    die(MBERR_VIRUS_FOUND);
+	}
+
+	if ((unarc = unpacker(File))) {
 	    if (strlen(area.Archiver) && (strcmp(unarc, area.Archiver) == 0))
 		MustRearc = TRUE;
 	    UnPacked = UnpackFile(temp);
 	    if (!UnPacked)
 		die(MBERR_INIT_ERROR);
-
-	    if (do_novir == FALSE) {
-		if (!do_quiet) {
-		    printf("Virscan   \b\b\b\b\b\b\b\b\b\b");
-		    fflush(stdout);
-		}
-		IsVirus = VirScan(tmpdir);
-	    } else {
-		IsVirus = FALSE;
-	    }
-
-            if (IsVirus) {
-		clean_tmpwork();
-                chdir(pwd);
-		WriteError("Virus found");
-		if (!do_quiet)
-		    printf("\nVirus found\n");
-		die(MBERR_VIRUS_FOUND);
-            }
 	}
 
         if (!do_quiet) {

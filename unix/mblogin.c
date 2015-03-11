@@ -1,11 +1,10 @@
 /*****************************************************************************
  *
- * $Id: mblogin.c,v 1.9 2007/08/26 15:05:33 mbse Exp $
  * Purpose ...............: Login program for MBSE BBS.
  * Shadow Suite (c) ......: Julianne Frances Haugh
  *
  *****************************************************************************
- * Copyright (C) 1997-2007
+ * Copyright (C) 1997-2012
  *   
  * Michiel Broek        FIDO:           2:280/2802
  * Beekmansbos 10
@@ -448,34 +447,12 @@ int main(int argc, char **argv)
     STRFCPY(tty, utent.ut_line);
 
     if (hflg) {
-#ifdef UT_ADDR
-	struct hostent *he;
-
-        /*
-         * Fill in the ut_addr field (remote login IP address).
-         * XXX - login from util-linux does it, but this is not
-         * the right place to do it.  The program that starts
-         * login (telnetd, rlogind) knows the IP address, so it
-         * should create the utmp entry and fill in ut_addr.
-         * gethostbyname() is not 100% reliable (the remote host
-         * may be unknown, etc.).  --marekm
-         */
-
-        if ((he = gethostbyname(hostname))) {
-	    utent.ut_addr = *((int32_t *)(he->h_addr_list[0]));
-#endif
-#ifdef UT_HOST
-	    strncpy(utent.ut_host, hostname, sizeof(utent.ut_host));
-#endif
-#if HAVE_UTMPX_H
-	    strncpy(utxent.ut_host, hostname, sizeof(utxent.ut_host));
-#endif
-	    /*
-	     * Add remote hostname to the environment.  I think
-	     * (not sure) I saw it once on Irix.  --marekm
-	     */
-	    addenv("REMOTEHOST", hostname);
-	}
+	/*
+	 * Add remote hostname to the environment.  I think
+	 * (not sure) I saw it once on Irix.  --marekm
+	 */
+	addenv("REMOTEHOST", hostname);
+    }
 
 #ifdef __linux__ 
 	/* workaround for init/getty leaving junk in ut_host at least in some
@@ -484,7 +461,7 @@ int main(int argc, char **argv)
 	    memzero(utent.ut_host, sizeof utent.ut_host);
 #endif
 
-	openlog("mblogin", LOG_PID|LOG_CONS|LOG_NOWAIT, LOG_AUTH);
+	openlog("mblogin", LOG_PID|LOG_CONS|LOG_NOWAIT, LOG_AUTHPRIV);
 	setup_tty();
 	umask(getdef_num("UMASK", 007));
 
@@ -835,9 +812,9 @@ auth_ok:
 	endsgent();			/* stop access to shadow group file */
 #endif
 	if (pwent.pw_uid == 0)
-	    syslog(LOG_NOTICE, ROOT_LOGIN, fromhost);
+	    syslog(LOG_WARNING, ROOT_LOGIN, fromhost);
 	else
-	    syslog(LOG_INFO, REG_LOGIN, username, fromhost);
+	    syslog(LOG_WARNING, REG_LOGIN, username, fromhost);
 	closelog();
 
 	shell (pwent.pw_shell, (char *) 0); /* exec the shell finally. */

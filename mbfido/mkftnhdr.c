@@ -1,10 +1,10 @@
 /*****************************************************************************
  *
- * $Id: mkftnhdr.c,v 1.17 2007/09/05 19:22:27 mbse Exp $
+ * $Id: mkftnhdr.c,v 1.19 2008/11/26 22:28:31 mbse Exp $
  * Purpose ...............: MBSE BBS Mail Gate
  *
  *****************************************************************************
- * Copyright (C) 1997-2007
+ * Copyright (C) 1997-2008
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -53,11 +53,6 @@
 
 
 
-#ifndef ULONG_MAX
-#define ULONG_MAX 4294967295
-#endif
-
-
 char	*replyaddr=NULL;
 char	*ftnmsgidstyle=NULL;
 faddr	*bestaka;
@@ -97,8 +92,8 @@ int ftnmsgid(char *msgid, char **s, unsigned int *n, char *areaname)
 	    if (strspn(tmp->name,"0123456789") == strlen(tmp->name))
 		nid = atoul(tmp->name);
 	    else 
-		nid = ULONG_MAX;
-	    if (nid == ULONG_MAX) {
+		nid = 0xffffffff;
+	    if (nid == 0xffffffff) {
 		hash_update_s(&nid, tmp->name);
 	    } else
 		ftnorigin = 1;
@@ -109,7 +104,7 @@ int ftnmsgid(char *msgid, char **s, unsigned int *n, char *areaname)
 	tidy_faddr(tmp);
     } else {
 	if ((r=strchr(l,'@')) == NULL) { /* should never happen */
-	    Syslog('!', "ftnmsgid: should never happen");
+	    Syslog('!', "ftnmsgid: should never happen: %s", printable(l, 0));
 	    *s = xstrcpy(l);
 	    hash_update_s(&nid,l);
 	/* <MSGID_mimeanything_abcd1234@ftn.domain> */
@@ -192,8 +187,8 @@ int ftnmsgid(char *msgid, char **s, unsigned int *n, char *areaname)
 	    if (strspn(l,"0123456789") == strlen(l))
 		nid = atoul(l);
 	    else 
-		nid = ULONG_MAX;
-	    if (nid == ULONG_MAX)
+		nid = 0xffffffff;
+	    if (nid == 0xffffffff)
 		hash_update_s(&nid,l);
 	    *s=xstrcpy(r);
 	}

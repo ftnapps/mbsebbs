@@ -1,6 +1,6 @@
 /*****************************************************************************
  *
- * $Id: mbselib.h,v 1.102 2007/10/15 11:06:42 mbse Exp $
+ * $Id: mbselib.h,v 1.106 2008/12/28 12:20:14 mbse Exp $
  * Purpose ...............: MBSE BBS main library header
  *
  *****************************************************************************
@@ -489,6 +489,7 @@ typedef enum {E_NOISP, E_TMPISP, E_PRMISP} EMODE;
 typedef enum {AREAMGR, FILEMGR, EMAIL} SERVICE;
 typedef enum {FEEDINN, FEEDRNEWS, FEEDUUCP} NEWSFEED;
 typedef enum {S_DIRECT, S_DIR, S_FTP} SESSIONTYPE;
+typedef enum {SCAN_EXTERN, CLAM_STREAM, FP_STREAM} SCANTYPE;
 
 
 
@@ -1258,8 +1259,8 @@ struct	sysconfig {
 	unsigned	modereader	: 1;	/* NNTP Mode Reader	    */
 	unsigned	allowcontrol	: 1;	/* Allow control messages   */
 	unsigned	dontregate	: 1;	/* Don't regate gated msgs  */
-	char		nntpuser[16];		/* NNTP username	    */
-	char		nntppass[16];		/* NNTP password	    */
+	char		xnntpuser[16];		/* NNTP username	    */
+	char		xnntppass[16];		/* NNTP password	    */
 	int		nntpdupes;		/* NNTP dupes database size */
 	int		newsfeed;		/* Newsfeed mode	    */
 	int		maxarticles;		/* Default max articles	    */
@@ -1283,9 +1284,14 @@ struct	sysconfig {
 	int		priority;		/* Child process priority   */
 	unsigned	do_sync		: 1;	/* Sync() during execute    */
 	unsigned	is_upgraded	: 1;	/* For internal upgrade use */
+	unsigned	nntpforceauth	: 1;	/* Force NNTP authenticate  */
 
 	char		myfqdn[64];		/* My real FQDN		    */
 	int		www_mailerlines;	/* Limit mailhistory lines  */
+
+	char		nntpuser[32];		/* NNTP username            */
+	char		nntppass[32];		/* NNTP password            */
+	unsigned int	nntpport;		/* NNTP port if not 119	    */
 };
 
 
@@ -1526,6 +1532,9 @@ struct	_virscan {
 	unsigned	deleted  	: 1;	/* Scanner is deleted	   */
 	char		options[65];		/* Scanner options	   */
 	int		error;			/* Error level for OK	   */
+	int		scantype;		/* Virus scanner type	   */
+	char		host[65];		/* Stream scanner host	   */
+	unsigned int	port;			/* Stream scanner port	   */
 };
 
 
@@ -2598,6 +2607,12 @@ int pid2prog(pid_t, char *, size_t);	/* Find progrname for a pid	*/
  */
 void clean_tmpwork(void);	    /* Remove tmp workdir		*/
 int  create_tmpwork(void);	    /* Create tmp workdir		*/
+
+
+/*
+ * virscan.c
+ */
+int VirScanFile(char *);		/* VirScan a file		*/
 
 
 /*************************************************************************

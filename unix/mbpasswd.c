@@ -1,11 +1,10 @@
 /*****************************************************************************
  *
- * $Id: mbpasswd.c,v 1.20 2007/05/28 10:40:24 mbse Exp $
  * Purpose ...............: setuid root version of passwd
  * Shadow Suite (c) ......: Julianne Frances Haugh
  *
  *****************************************************************************
- * Copyright (C) 1997-2007
+ * Copyright (C) 1997-2012
  *   
  * Michiel Broek	FIDO:		2:280/2802
  * Beekmansbos 10
@@ -847,7 +846,6 @@ int main(int argc, char *argv[])
     static struct group	    *gr;
     int			    pfd, tfd;
 #endif
-    char		    *cp;
 #ifdef _VPOPMAIL_PATH
     char		    *args[16];
 #endif
@@ -903,7 +901,7 @@ int main(int argc, char *argv[])
      * We don't log into MBSE BBS logfiles but to the system logfiles,
      * because we are modifying system files not belonging to MBSE BBS.
      */
-    openlog("mbpasswd", LOG_PID|LOG_CONS|LOG_NOWAIT, LOG_AUTH);
+    openlog("mbpasswd", LOG_PID|LOG_CONS|LOG_NOWAIT, LOG_AUTHPRIV);
 
     /*
      * Find out the name of our parent.
@@ -1057,11 +1055,8 @@ int main(int argc, char *argv[])
     sp = getspnam(name);
     if (!sp)
 	sp = pwd_to_spwd(pw);
-
-    cp = sp->sp_pwdp;
-#else
-    cp = pw->pw_passwd;
 #endif
+
     /*
      * See if the user is permitted to change the password.
      * Otherwise, go ahead and set a new password.

@@ -1,4 +1,4 @@
-/* $Id: ledit.h,v 1.19 2005/10/11 20:49:48 mbse Exp $ */
+/* $Id: ledit.h,v 1.21 2008/02/17 16:10:18 mbse Exp $ */
 
 #ifndef _LEDIT_H
 #define _LEDIT_H
@@ -39,6 +39,8 @@ securityrec	edit_nsec(securityrec, char *);
 char		*get_secstr(securityrec);
 void		show_int(int, int, int);
 int 		edit_int(int, int, int, char *);
+void		show_uint(int, int, unsigned int);
+unsigned int	edit_uint(int, int, unsigned int, char *);
 int		edit_int_range(int, int, int, int, int, char *);
 void		show_ushort(int, int, unsigned short);
 unsigned short	edit_ushort(int, int, unsigned short, char *);
@@ -76,6 +78,9 @@ int		edit_asktype(int, int, int, char *);
 char		*get_sessiontype(int);
 void		show_sessiontype(int, int, int);
 int		edit_sessiontype(int, int, int);
+char		*get_scannertype(int);
+void		show_scannertype(int, int, int);
+int		edit_scannertype(int, int, int);
 char		*get_routetype(int);
 void		show_routetype(int, int, int);
 int		edit_routetype(int, int, int);
@@ -96,6 +101,7 @@ int		edit_charset(int, int, int);
 #define E_JAM(y,x,l,str,help) strcpy(str, edit_jam(y,x,l,str,(char *)help)); break;
 #define E_BOOL(y,x,bool,help) bool = edit_bool(y,x,bool,(char *)help); break;
 #define E_INT(y,x,value,help) value = edit_int(y,x,value,(char *)help); break;
+#define E_UINT(y,x,value,help) value = edit_uint(y,x,value,(char *)help); break;
 #define E_IRC(y,x,value,min,max,help) value = edit_int_range(y,x,value,min,max,(char *)help); break;
 #define E_LOGL(grade,txt,af)  grade = edit_logl(grade,(char *)txt); af(); break;
 #define S_COL(y,x,name,fg,bg) set_color(fg,bg); mbse_mvprintw(y,x,name);

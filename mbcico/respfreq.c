@@ -1,10 +1,9 @@
 /*****************************************************************************
  *
- * $Id: respfreq.c,v 1.21 2007/04/30 19:04:18 mbse Exp $
  * Purpose ...............: Fidonet mailer - respond to filerequests
  *
  *****************************************************************************
- * Copyright (C) 1997-2007
+ * Copyright (C) 1997-2011
  *   
  * Michiel Broek		FIDO:	2:280/2802
  * Beekmansbos 10
@@ -159,7 +158,6 @@ file_list *respfreq(char *nm, char *pw, char *dt)
     time_t		upd = 0L;
     int			newer = 1, Send;
     FILE		*fa, *fi;
-    int			Area;
     struct FILEIndex	idx;
     struct _fdbarea	*fdb_area = NULL;
 
@@ -246,7 +244,6 @@ file_list *respfreq(char *nm, char *pw, char *dt)
 	WriteError("$Can't open %s", p);
 	return NULL;
     }
-    Area = 0L;
     free(p);
 
     Syslog('f', "Start search ...");
@@ -530,7 +527,7 @@ file_list *respmagic(char *cmd) /* must free(cmd) before exit */
 				add_report((char *)"OK: magic output is send by mail");
 				unlink(tmpfn);
 			} else {
-				WriteError("$cannot open temp file \"%s\"",MBSE_SS(tmpfn));
+				WriteError("$cannot open temp file \"%s\"",tmpfn);
 			}
 		} else {
 			WriteError("$cannot stat() magic stdout \"%s\"",tmpfn);

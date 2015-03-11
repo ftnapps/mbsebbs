@@ -1,10 +1,9 @@
 /*****************************************************************************
  *
- * $Id: offline.c,v 1.60 2007/09/02 15:04:36 mbse Exp $
  * Purpose ...............: Offline Reader
  *
  *****************************************************************************
- * Copyright (C) 1997-2007
+ * Copyright (C) 1997-2011
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -63,6 +62,7 @@ extern int	do_mailout;
 extern int	cols;
 extern int	rows;
 char		*newtear = NULL;
+extern unsigned int	mib_posted;
 
 
 typedef struct	_msg_high {
@@ -1613,6 +1613,7 @@ void BlueWave_Fetch()
 	    poutCR(CFG.TextColourF, CFG.TextColourB, temp);
 	    ReadExitinfo();
 	    exitinfo.iPosted += i;
+	    mib_posted += i;
 	    WriteExitinfo();
 	    do_mailout = TRUE;
 	}
@@ -2430,6 +2431,7 @@ void QWK_Fetch()
 	poutCR(CFG.TextColourF, CFG.TextColourB, temp);
 	ReadExitinfo();
 	exitinfo.iPosted += nPosted;
+	mib_posted += nPosted;
 	WriteExitinfo();
 	do_mailout = TRUE;
     }
@@ -2656,8 +2658,6 @@ char *StripSpaces(char *String, int Size)
 
 void OLR_DownASCII(void)
 {
-    struct  tm      *tp;
-    time_t          Now;
     char            Pktname[32], *Work, *Temp, *cwd = NULL, Atag[60], Kinds[12], *p;
     int		    Area = 0, i, rc = 0;
     FILE            *fp = NULL, *tf, *mf, *af, *inf;
@@ -2682,8 +2682,6 @@ void OLR_DownASCII(void)
     Work = calloc(PATH_MAX, sizeof(char));
     Temp = calloc(PATH_MAX, sizeof(char));
 	
-    Now = time(NULL);
-    tp = localtime(&Now);
     Syslog('+', "Preparing ASCII packet");
 
     snprintf(Temp, PATH_MAX, "%s.MSG", CFG.bbsid);

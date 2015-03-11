@@ -1,10 +1,9 @@
 /*****************************************************************************
  *
- * $Id: mbtask.c,v 1.135 2007/09/02 10:06:30 mbse Exp $
  * Purpose ...............: MBSE BBS Task Manager
  *
  *****************************************************************************
- * Copyright (C) 1997-2007
+ * Copyright (C) 1997-2011
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -987,7 +986,7 @@ void check_sema(void)
 void start_scheduler(int port)
 {
     struct passwd   *pw;
-    char            *cmd = NULL;
+    char            *cmd = NULL, ipstr[INET6_ADDRSTRLEN];
     
     if (nodaemon)
 	printf("init fidonet\n");
@@ -1037,10 +1036,14 @@ void start_scheduler(int port)
      * Setup IBC socket
      */
     if (Run_IBC) {
+	void	*addr;
+
 	myaddr_in.sin_family = AF_INET;
 	myaddr_in.sin_addr.s_addr = INADDR_ANY;
 	myaddr_in.sin_port = port;
-	Syslog('+', "IBC: listen on %s, port %d", inet_ntoa(myaddr_in.sin_addr), ntohs(myaddr_in.sin_port));
+	addr = &(myaddr_in.sin_addr);
+	inet_ntop(AF_INET, addr, ipstr, sizeof ipstr);
+	Syslog('+', "IBC: listen on %s, port %d", ipstr, ntohs(myaddr_in.sin_port));
 
 	ibcsock = socket(AF_INET, SOCK_DGRAM, 0);
 	if (ibcsock == -1) {
@@ -1672,8 +1675,11 @@ int main(int argc, char **argv)
 	 * associated with that terminal as its control terminal.
 	 */
 	if ((pgrp = setpgid(0, 0)) == -1) {
-	    Syslog('?', "$setpgid failed");
-	    die(MBERR_INIT_ERROR);
+	    Syslog('t', "$setpgid failed");
+	    /*
+	     * Just log this, some SElinux versions don't allow it.
+	     */
+//	    die(MBERR_INIT_ERROR);
 	}
 
 	frk = fork();

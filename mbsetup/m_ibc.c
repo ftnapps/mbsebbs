@@ -1,10 +1,10 @@
 /*****************************************************************************
  *
- * $Id: m_ibc.c,v 1.8 2005/11/14 20:42:56 mbse Exp $
+ * $Id: m_ibc.c,v 1.9 2008/02/28 22:05:14 mbse Exp $
  * Purpose ...............: Setup Internet BBS Chat
  *
  *****************************************************************************
- * Copyright (C) 1997-2005
+ * Copyright (C) 1997-2008
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -390,7 +390,7 @@ int ibc_doc(FILE *fp, FILE *toc, int page)
 	return page;
 
     page = newpage(fp, page);
-    addtoc(fp, toc, 4, 0, page, (char *)"Internet BBS Chatservers");
+    addtoc(fp, toc, 20, 0, page, (char *)"Internet BBS Chatservers");
     j = 0;
     fprintf(fp, "\n\n");
     fread(&ibcsrvhdr, sizeof(ibcsrvhdr), 1, vir);

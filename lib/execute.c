@@ -1,6 +1,6 @@
 /*****************************************************************************
  *
- * $Id: execute.c,v 1.23 2005/08/30 18:38:39 mbse Exp $
+ * $Id: execute.c,v 1.24 2008/02/23 21:50:41 mbse Exp $
  * Purpose ...............: Execute subprogram
  *
  *****************************************************************************
@@ -118,7 +118,9 @@ int _execute(char **args, char *in, char *out, char *err)
 		if (WIFEXITED(status)) {
 		    rc = WEXITSTATUS(status);
 		    if (rc) {
-			WriteError("Execute: returned error %d", rc);
+			if ((strstr(args[0], (char *)"unzip") == NULL) || (rc != 11)) {
+			    WriteError("Execute: returned error %d", rc);
+			}
 			return (rc + MBERR_EXTERNAL);
 		    }
 		}

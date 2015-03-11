@@ -1,10 +1,10 @@
 /*****************************************************************************
  *
- * $Id: m_domain.c,v 1.17 2005/10/11 20:49:48 mbse Exp $
+ * $Id: m_domain.c,v 1.18 2008/02/28 22:05:14 mbse Exp $
  * Purpose ...............: Domain Setup
  *
  *****************************************************************************
- * Copyright (C) 1997-2005
+ * Copyright (C) 1997-2008
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -472,7 +472,7 @@ int domain_doc(FILE *fp, FILE *toc, int page)
 		return page;
 
 	page = newpage(fp, page);
-	addtoc(fp, toc, 15, 0, page, (char *)"Domain manager");
+	addtoc(fp, toc, 17, 0, page, (char *)"Domain manager");
 	j = 0;
 
 	wp = open_webdoc((char *)"domain.html", (char *)"Domain Translation", NULL);

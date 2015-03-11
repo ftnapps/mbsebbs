@@ -1,10 +1,9 @@
 /*****************************************************************************
  *
- * $Id: ptic.c,v 1.65 2007/10/12 19:19:00 mbse Exp $
  * Purpose ...............: Process 1 .tic file
  *
  *****************************************************************************
- * Copyright (C) 1997-2007
+ * Copyright (C) 1997-2011
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -44,7 +43,6 @@
 #include "ptic.h"
 #include "magic.h"
 #include "createf.h"
-#include "virscan.h"
 #include "qualify.h"
 #include "addbbs.h"
 
@@ -68,11 +66,10 @@ extern	int	check_dupe;
  */
 int ProcessTic(fa_list **sbl, orphans **opl)
 {
-    time_t	    Now;
     int		    First, Listed = FALSE, DownLinks = 0, MustRearc = FALSE;
-    int		    UnPacked = FALSE, IsArchive = FALSE, rc, i, j, k, File_Id = FALSE;
+    int		    UnPacked = FALSE, IsArchive = FALSE, rc, i, j, k;
     char	    *Temp, *unarc = NULL, *cmd = NULL;
-    char	    temp1[PATH_MAX], temp2[PATH_MAX], sbe[24], TDesc[256];
+    char	    temp1[PATH_MAX], temp2[PATH_MAX], sbe[24], TDesc[1024];
     unsigned int    crc, crc2, Kb;
     sysconnect	    Link;
     FILE	    *fp;
@@ -81,8 +78,6 @@ int ProcessTic(fa_list **sbl, orphans **opl)
     faddr	    *p_from;
     qualify	    *qal = NULL, *tmpq;
     orphans	    *topl;
-
-    Now = time(NULL);
 
     if (TIC.TicIn.PathError) {
 	WriteError("Our Aka is in the path");
@@ -339,7 +334,7 @@ int ProcessTic(fa_list **sbl, orphans **opl)
      * Check if this is an archive, and if so, which compression method
      * is used for this file.
      */
-    if (strlen(tic.Convert) || tic.VirScan || tic.FileId || tic.ConvertAll || strlen(tic.Banner)) {
+    if (strlen(tic.Convert) || tic.FileId || tic.ConvertAll || strlen(tic.Banner)) {
 	/*
 	 * Create tmp workdir
 	 */
@@ -373,7 +368,7 @@ int ProcessTic(fa_list **sbl, orphans **opl)
 	}
     }
 
-    if ((tic.VirScan || MustRearc) && IsArchive) {
+    if (MustRearc && IsArchive) {
 
 	snprintf(temp2, PATH_MAX, "%s/tmp/arc%d", getenv("MBSE_ROOT"), (int)getpid());
 	if (!checkspace(temp2, TIC.TicIn.File, UNPACK_FACTOR)) {
@@ -401,11 +396,10 @@ int ProcessTic(fa_list **sbl, orphans **opl)
 	    return 1;
 	}
 
-	cmd = xstrcpy(archiver.funarc);
-
-	if ((cmd == NULL) || (cmd == "")) {
+	if (strlen(archiver.funarc) == 0) {
 	    Syslog('!', "No unarc command available");
 	} else {
+	    cmd = xstrcpy(archiver.funarc);
 	    snprintf(temp1, PATH_MAX, "%s/%s", TIC.Inbound, TIC.TicIn.File);
 	    if (execute_str(cmd, temp1, (char *)NULL, (char *)"/dev/null", (char *)"/dev/null", (char *)"/dev/null") == 0) {
 		UnPacked = TRUE;
@@ -420,42 +414,19 @@ int ProcessTic(fa_list **sbl, orphans **opl)
 	}
     }
 
-    if (tic.VirScan && !UnPacked) {
-	/*
-	 * Copy file to tempdir and run scanner over the file
-	 * whatever that is. This should catch single files
-	 * with worms or other macro viri
-	 */
-	snprintf(temp1, PATH_MAX, "%s/%s", TIC.Inbound, TIC.TicIn.File);
-	snprintf(temp2, PATH_MAX, "%s/tmp/arc%d/%s", getenv("MBSE_ROOT"), (int)getpid(), TIC.TicIn.File);
-
-	if ((rc = file_cp(temp1, temp2))) {
-	    WriteError("Can't copy %s to %s: %s", temp1, temp2, strerror(rc));
-	    free(Temp);
-	    tidy_qualify(&qal);
-	    clean_tmpwork();
-	    return 1;
-	}
-
-	snprintf(temp2, PATH_MAX, "%s/tmp/arc%d", getenv("MBSE_ROOT"), (int)getpid());
-	if (chdir(temp2) != 0) {
-	    WriteError("$Can't change to %s", temp2);
-	    free(Temp);
-	    tidy_qualify(&qal);
-	    clean_tmpwork();
-	    return 1;
-	}
-    }
-
+    /*
+     * Scan file for viri.
+     */
     if (tic.VirScan) {
+
+	snprintf(temp1, PATH_MAX, "%s/%s", TIC.Inbound, TIC.TicIn.File);
 
 	if (!do_quiet) {
 	    printf("Virscan   \b\b\b\b\b\b\b\b\b\b");
 	    fflush(stdout);
 	}
 
-	if (VirScan(NULL)) {
-	    clean_tmpwork();
+	if (VirScanFile(temp1)) {
 	    chdir(TIC.Inbound);
 	    Bad((char *)"Possible virus found!");
 	    free(Temp);
@@ -479,9 +450,6 @@ int ProcessTic(fa_list **sbl, orphans **opl)
 		Syslog('f', "Found %s", Temp);
 		snprintf(temp1, PATH_MAX, "%s/tmp/arc%d/%s", getenv("MBSE_ROOT"), (int)getpid(), Temp);
 		snprintf(temp2, PATH_MAX, "%s/tmp/FILE_ID.DIZ", getenv("MBSE_ROOT"));
-		if (file_cp(temp1, temp2) == 0) {
-		    File_Id = TRUE;
-		}
 	    } else {
 		Syslog('f', "Didn't find a FILE_ID.DIZ");
 	    }
@@ -497,13 +465,9 @@ int ProcessTic(fa_list **sbl, orphans **opl)
 		    snprintf(temp1, PATH_MAX, "%s/tmp", getenv("MBSE_ROOT"));
 		    chdir(temp1);
 		    snprintf(temp1, PATH_MAX, "%s/%s FILE_ID.DIZ", TIC.Inbound, TIC.TicIn.File);
-		    if (execute_str(cmd, temp1, (char *)NULL, (char *)"/dev/null", (char *)"/dev/null", (char *)"/dev/null") == 0) {
-			File_Id = TRUE;
-		    } else {
+		    if (execute_str(cmd, temp1, (char *)NULL, (char *)"/dev/null", (char *)"/dev/null", (char *)"/dev/null")) {
 			snprintf(temp1, PATH_MAX, "%s/%s file_id.diz", TIC.Inbound, TIC.TicIn.File);
-			if (execute_str(cmd, temp1, (char *)NULL, (char *)"/dev/null", (char *)"/dev/null", (char *)"/dev/null") == 0) {
-			    File_Id = TRUE;
-			}
+			execute_str(cmd, temp1, (char *)NULL, (char *)"/dev/null", (char *)"/dev/null", (char *)"/dev/null");
 		    }
 		    free(cmd);
 		}
@@ -611,7 +575,6 @@ int ProcessTic(fa_list **sbl, orphans **opl)
 	    }
 	}
     }
-
     clean_tmpwork();
     chdir(TIC.Inbound);
 
@@ -690,7 +653,7 @@ int ProcessTic(fa_list **sbl, orphans **opl)
 	 * Add all our system aka's to the seenby lines in the same zone,
 	 * omit aka's already in the seenby list.
 	 */
-	for (i = 0; i < 40; i++) {
+	for (i = 0; i < 39; i++) {
 	    if (CFG.akavalid[i] && (tic.Aka.zone == CFG.aka[i].zone)) {
 		p_from = fido2faddr(CFG.aka[i]);
 		if (! in_list(p_from, sbl, TRUE)) {

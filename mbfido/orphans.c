@@ -1,6 +1,6 @@
 /*****************************************************************************
  *
- * $Id: orphans.c,v 1.2 2005/11/19 12:30:32 mbse Exp $
+ * $Id: orphans.c,v 1.4 2008/03/14 20:10:08 mbse Exp $
  * Purpose ...............: List of orphaned ticfiles
  *
  *****************************************************************************
@@ -50,7 +50,7 @@ void tidy_orphans(orphans **qal)
 void fill_orphans(orphans **qal, char *TicName, char *Area, char *FileName, int Orphaned, int BadCRC)
 {
     orphans	*tmp;
-
+    
     tmp = (orphans *)malloc(sizeof(orphans));
     tmp->next = *qal;
     snprintf(tmp->TicName, 13, TicName);

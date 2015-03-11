@@ -1,6 +1,6 @@
 /*****************************************************************************
  *
- * $Id: bye.c,v 1.31 2006/12/22 20:16:23 mbse Exp $
+ * $Id: bye.c,v 1.32 2008/02/12 19:59:45 mbse Exp $
  * Purpose ...............: Hangup functions
  *
  *****************************************************************************
@@ -40,12 +40,17 @@
 #include "term.h"
 #include "openport.h"
 #include "ttyio.h"
+#include "mib.h"
 
 
 extern	pid_t		mypid;
 extern	time_t		t_start;
 extern	char		*StartTime;
 extern	int		hanged_up;
+
+extern	unsigned int	mib_sessions;
+extern	unsigned int	mib_minutes;
+
 
 int			do_mailout = FALSE;
 
@@ -100,6 +105,15 @@ void Good_Bye(int onsig)
 	    fclose(pUsrConfig);
 	}
     }
+
+    /*
+     * Update mib counters
+     */
+    t_end = time(NULL);
+    mib_minutes = (unsigned int) ((t_end - t_start) / 60);
+    mib_sessions++;
+
+    sendmibs();
 
     /*
      * Flush all data to the user, wait 5 seconds to

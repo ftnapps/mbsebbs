@@ -1,10 +1,10 @@
 /*****************************************************************************
  *
- * $Id: tic.c,v 1.58 2007/10/12 19:19:01 mbse Exp $
+ * $Id: tic.c,v 1.59 2008/03/14 20:09:37 mbse Exp $
  * Purpose ...............: Process .tic files
  *
  *****************************************************************************
- * Copyright (C) 1997-2007
+ * Copyright (C) 1997-2008
  *   
  * Michiel Broek		FIDO:		2:280/2802
  * Beekmansbos 10
@@ -275,11 +275,11 @@ int LoadTic(char *inb, char *tfn, orphans **opl)
 
 	} else if (strncasecmp(Temp, "origin ", 7) == 0) {
 	    strncpy(TIC.TicIn.Origin, Temp+7, 80);
-	    strncpy(T_File.Origin, Temp+7, 80);
+	    strncpy(T_File.Origin, Temp+7, 23);
 
 	} else if (strncasecmp(Temp, "from ", 5) == 0) {
 	    strncpy(TIC.TicIn.From, Temp+5, 80);
-	    strncpy(T_File.From, Temp+5, 80);
+	    strncpy(T_File.From, Temp+5, 23);
 
 	} else if (strncasecmp(Temp, "file ", 5) == 0) {
 	    strncpy(TIC.TicIn.File, Temp+5, 80);
@@ -299,7 +299,7 @@ int LoadTic(char *inb, char *tfn, orphans **opl)
 	} else if (strncasecmp(Temp, "crc ", 4) == 0) {
 	    TIC.Crc_Int = strtoul(Temp+4, (char **)NULL, 16);
 	    snprintf(TIC.TicIn.Crc, 9, "%08X", TIC.Crc_Int);
-	    strcpy(T_File.Crc, TIC.TicIn.Crc);
+	    strncpy(T_File.Crc, TIC.TicIn.Crc, 8);
 
 	} else if (strncasecmp(Temp, "pw ", 3) == 0) {
 	    strncpy(TIC.TicIn.Pw, Temp+3, 20);
