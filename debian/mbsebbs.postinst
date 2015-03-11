@@ -161,8 +161,9 @@ case "$1" in
         tar xfC /usr/share/mbsebbs/int/txtfiles-es.tar /var/lib/mbsebbs/int/txtfiles/es
     fi
 
-    #  Set default user:group for mbsebbs install
+    #  Set default user:group for mbsebbs directories
     chown -R mbsebbs:bbs /var/lib/mbsebbs
+    chown -R mbsebbs:bbs /usr/lib/mbsebbs
 
     #  Run mbsebbs mbsetup initialization if this is a new install
     if [ -z "$old_version" ]; then
