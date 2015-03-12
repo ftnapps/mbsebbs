@@ -20,8 +20,9 @@ set -e
 
 case "$1" in
     purge)
+        deluser --system --remove-home --quiet bbs
+        deluser --system --quiet mbsebbs
         delgroup --system --quiet bbs
-        deluser --remove-all-files --system --quiet mbsebbs
     ;;
 
     upgrade)
@@ -32,7 +33,7 @@ case "$1" in
         fi
     ;;
 
-    remove|failed-upgrade|abort-install|abort-upgrade|disappear)
+    remove|purge|failed-upgrade|abort-install|abort-upgrade|disappear)
     ;;
 
     *)
