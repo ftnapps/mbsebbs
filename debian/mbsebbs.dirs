@@ -13,6 +13,8 @@ var/lib/mbsebbs/dosemu/c
 var/lib/mbsebbs/doc
 var/lib/mbsebbs/doc/html
 var/lib/mbsebbs/doc/tags
+var/lib/mbsebbs/etc
+var/lib/mbsebbs/etc/dosemu
 var/lib/mbsebbs/fdb
 var/lib/mbsebbs/ftp
 var/lib/mbsebbs/ftp/pub

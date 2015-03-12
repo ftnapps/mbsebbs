@@ -7,9 +7,9 @@ usr/lib/mbsebbs/bin/mbfido usr/lib/mbsebbs/bin/mbnews
 /usr/share/doc/mbsebbs/html/misc/index.htm /usr/share/doc/mbsebbs/html/misc/index.html
 /usr/share/doc/mbsebbs/html/programs/index.htm /usr/share/doc/mbsebbs/html/programs/index.html
 /usr/share/doc/mbsebbs/html/setup/index.htm /usr/share/doc/mbsebbs/html/setup/index.html
-/var/lib/mbsebbs /usr/lib/mbsebbs/etc
 /var/lib/mbsebbs /usr/lib/mbsebbs/share
 /var/lib/mbsebbs /usr/lib/mbsebbs/var
+/var/lib/mbsebbs/etc /usr/lib/mbsebbs/etc
 /var/lib/mbsebbs/home /usr/lib/mbsebbs/home
 /var/lib/mbsebbs/log /usr/lib/mbsebbs/log
 /var/lib/mbsebbs/tmp /usr/lib/mbsebbs/tmp
