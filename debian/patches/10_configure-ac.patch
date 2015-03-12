@@ -4,7 +4,7 @@ Description: Updates to configure.ac for package build.
  .
  This is for the Debian package build.
 Author: Robert James Clay <jame@rocasa.us>
-Last-Updated: 20130911
+Last-Updated: 20150311
 
 --- a/configure.ac
 +++ b/configure.ac
@@ -22,7 +22,7 @@ Last-Updated: 20130911
  AC_SUBST(ROWNER)
  AC_SUBST(RGROUP)
 -AC_PREFIX_DEFAULT(/opt/mbse)
-+AC_PREFIX_DEFAULT()
++AC_PREFIX_DEFAULT(/usr/lib/mbsebbs)
  AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
  AC_DEFINE_UNQUOTED(VERSION_MAJOR, $MAJOR)
  AC_DEFINE_UNQUOTED(VERSION_MINOR, $MINOR)
