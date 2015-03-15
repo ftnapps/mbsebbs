@@ -167,7 +167,7 @@ case "$1" in
 
     # Configure setuid & setgid as necessary
     chown root:root /usr/lib/mbsebbs/bin/mbtask
-    chmod 4754 /usr/lib/mbsebbs/bin/mbtask
+    chmod 6711 /usr/lib/mbsebbs/bin/mbtask
     chown root:root /usr/lib/mbsebbs/bin/mbnewusr
     chmod 6754 /usr/lib/mbsebbs/bin/mbnewusr
     chown root:root /usr/lib/mbsebbs/bin/mbuser
