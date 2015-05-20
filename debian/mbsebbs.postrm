@@ -20,6 +20,15 @@ set -e
 
 case "$1" in
     purge)
+        # When being purged; if /var/lib/ledgersmb/css exists, remove it.
+        if [ -d "/usr/lib/mbsebbs/bin/adm" ]; then
+            rm -rf /usr/lib/mbsebbs/bin/adm/*
+            rmdir /usr/lib/mbsebbs/bin/adm
+        fi
+        if [ -d "/usr/lib/mbsebbs/bin" ]; then
+            rm -rf /usr/lib/mbsebbs/bin/*
+            rmdir /usr/lib/mbsebbs/bin
+        fi
         deluser --system --remove-home --quiet bbs
         deluser --system --quiet mbsebbs
         delgroup --system --quiet bbs
