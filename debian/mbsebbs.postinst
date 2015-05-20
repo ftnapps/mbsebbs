@@ -22,166 +22,164 @@ old_version=$2
 
 case "$1" in
     configure)
-    # Install example bash profile if it is not already present
-    if [ ! -e "/usr/lib/mbsebbs/.profile" ]; then
-        install -m 440 /usr/share/doc/mbsebbs/examples/profile.mbsebbs /usr/lib/mbsebbs/.profile
-    fi
+        # Install example bash profile if it is not already present
+        if [ ! -e "/usr/lib/mbsebbs/.profile" ]; then
+            install -m 440 /usr/share/doc/mbsebbs/examples/profile.mbsebbs /usr/lib/mbsebbs/.profile
+        fi
+        # Install example bbbsdoor.sh script if it is not already present
+        if [ ! -e "/usr/lib/mbsebbs/bin/bbsdoor.sh" ]; then
+            install -m 750 /usr/share/doc/mbsebbs/examples/bbsdoor.sh /usr/lib/mbsebbs/bin/bbsdoor.sh
+        fi
+        # Install example editor script if it is not already present
+        if [ ! -e "/usr/lib/mbsebbs/bin/editor" ]; then
+            install -m 750 /usr/share/doc/mbsebbs/examples/editor /usr/lib/mbsebbs/bin/editor
+        fi
+        # Install example hatch script if it is not already present
+        if [ ! -e "/usr/lib/mbsebbs/bin/hatch" ]; then
+            install -m 750 /usr/share/doc/mbsebbs/examples/hatch /usr/lib/mbsebbs/bin/hatch
+        fi
+        # Install example mbsedos script if it is not already present
+        if [ ! -e "/usr/lib/mbsebbs/bin/mbsedos" ]; then
+            install -m 750 /usr/share/doc/mbsebbs/examples/mbsedos /usr/lib/mbsebbs/bin/mbsedos
+        fi
+        # Install example rundoor.sh script if it is not already present
+        if [ ! -e "/usr/lib/mbsebbs/bin/rundoor.sh" ]; then
+            install -m 750 /usr/share/doc/mbsebbs/examples/rundoor.sh /usr/lib/mbsebbs/bin/rundoor.sh
+        fi
+        # Install example runvirtual.sh script if it is not already present
+        if [ ! -e "/usr/lib/mbsebbs/bin/runvirtual.sh" ]; then
+            install -m 750 /usr/share/doc/mbsebbs/examples/runvirtual.sh /usr/lib/mbsebbs/bin/runvirtual.sh
+        fi
+        # Install example maint script if it is not already present
+        if [ ! -e "/usr/lib/mbsebbs/bin/adm/maint" ]; then
+            install -m 750 /usr/share/doc/mbsebbs/examples/maint /usr/lib/mbsebbs/bin/adm/maint
+        fi
+        # Install example midnight script if it is not already present
+        if [ ! -e "/usr/lib/mbsebbs/bin/adm/midnight" ]; then
+            install -m 750 /usr/share/doc/mbsebbs/examples/midnight /usr/lib/mbsebbs/bin/adm/midnight
+        fi
+        # Install example monthly script if it is not already present
+        if [ ! -e "/usr/lib/mbsebbs/bin/adm/monthly" ]; then
+            install -m 750 /usr/share/doc/mbsebbs/examples/monthly /usr/lib/mbsebbs/bin/adm/monthly
+        fi
+        # Install example weekly script if it is not already present
+        if [ ! -e "/usr/lib/mbsebbs/bin/adm/weekly" ]; then
+            install -m 750 /usr/share/doc/mbsebbs/examples/weekly /usr/lib/mbsebbs/bin/adm/weekly
+        fi
 
-    # Install example bbbsdoor.sh script if it is not already present
-    if [ ! -e "/usr/lib/mbsebbs/bin/bbsdoor.sh" ]; then
-        install -m 750 /usr/share/doc/mbsebbs/examples/bbsdoor.sh /usr/lib/mbsebbs/bin/bbsdoor.sh
-    fi
-    # Install example editor script if it is not already present
-    if [ ! -e "/usr/lib/mbsebbs/bin/editor" ]; then
-        install -m 750 /usr/share/doc/mbsebbs/examples/editor /usr/lib/mbsebbs/bin/editor
-    fi
-    # Install example hatch script if it is not already present
-    if [ ! -e "/usr/lib/mbsebbs/bin/hatch" ]; then
-        install -m 750 /usr/share/doc/mbsebbs/examples/hatch /usr/lib/mbsebbs/bin/hatch
-    fi
-    # Install example mbsedos script if it is not already present
-    if [ ! -e "/usr/lib/mbsebbs/bin/mbsedos" ]; then
-        install -m 750 /usr/share/doc/mbsebbs/examples/mbsedos /usr/lib/mbsebbs/bin/mbsedos
-    fi
-    # Install example rundoor.sh script if it is not already present
-    if [ ! -e "/usr/lib/mbsebbs/bin/rundoor.sh" ]; then
-        install -m 750 /usr/share/doc/mbsebbs/examples/rundoor.sh /usr/lib/mbsebbs/bin/rundoor.sh
-    fi
-    # Install example runvirtual.sh script if it is not already present
-    if [ ! -e "/usr/lib/mbsebbs/bin/runvirtual.sh" ]; then
-        install -m 750 /usr/share/doc/mbsebbs/examples/runvirtual.sh /usr/lib/mbsebbs/bin/runvirtual.sh
-    fi
-    # Install example maint script if it is not already present
-    if [ ! -e "/usr/lib/mbsebbs/bin/adm/maint" ]; then
-        install -m 750 /usr/share/doc/mbsebbs/examples/maint /usr/lib/mbsebbs/bin/adm/maint
-    fi
-    # Install example midnight script if it is not already present
-    if [ ! -e "/usr/lib/mbsebbs/bin/adm/midnight" ]; then
-        install -m 750 /usr/share/doc/mbsebbs/examples/midnight /usr/lib/mbsebbs/bin/adm/midnight
-    fi
-    # Install example monthly script if it is not already present
-    if [ ! -e "/usr/lib/mbsebbs/bin/adm/monthly" ]; then
-        install -m 750 /usr/share/doc/mbsebbs/examples/monthly /usr/lib/mbsebbs/bin/adm/monthly
-    fi
-    # Install example weekly script if it is not already present
-    if [ ! -e "/usr/lib/mbsebbs/bin/adm/weekly" ]; then
-        install -m 750 /usr/share/doc/mbsebbs/examples/weekly /usr/lib/mbsebbs/bin/adm/weekly
-    fi
+        # Install example footer.txt file if it is not already present
+        if [ ! -e "/usr/lib/mbsebbs/etc/footer.txt" ]; then
+            install -m 640 /usr/share/mbsebbs/etc/footer.txt /usr/lib/mbsebbs/etc/footer.txt
+        fi
+        # Install example header.txt file if it is not already present
+        if [ ! -e "/usr/lib/mbsebbs/etc/header.txt" ]; then
+            install -m 640 /usr/share/mbsebbs/etc/header.txt /usr/lib/mbsebbs/etc/header.txt
+        fi
 
-    # Install example footer.txt file if it is not already present
-    if [ ! -e "/usr/lib/mbsebbs/etc/footer.txt" ]; then
-        install -m 640 /usr/share/mbsebbs/etc/footer.txt /usr/lib/mbsebbs/etc/footer.txt
-    fi
-    # Install example header.txt file if it is not already present
-    if [ ! -e "/usr/lib/mbsebbs/etc/header.txt" ]; then
-        install -m 640 /usr/share/mbsebbs/etc/header.txt /usr/lib/mbsebbs/etc/header.txt
-    fi
+        # Install the English BBS language file if it is not already present
+        if [ ! -e "/var/lib/mbsebbs/int/language.en" ]; then
+            install -m 640 /usr/share/mbsebbs/int/language.en /var/lib/mbsebbs/int/language.en
+        fi
+        # Install the Spanish BBS language file if it is not already present
+        if [ ! -e "/var/lib/mbsebbs/int/language.es" ]; then
+            install -m 640 /usr/share/mbsebbs/int/language.es /var/lib/mbsebbs/int/language.es
+        fi
+        # Install the German BBS language file if it is not already present
+        if [ ! -e "/var/lib/mbsebbs/int/language.de" ]; then
+            install -m 640 /usr/share/mbsebbs/int/language.de /var/lib/mbsebbs/int/language.de
+        fi
+        # Install the French BBS language file if it is not already present
+        if [ ! -e "/var/lib/mbsebbs/int/language.fr" ]; then
+            install -m 640 /usr/share/mbsebbs/int/language.fr /var/lib/mbsebbs/int/language.fr
+        fi
+        # Install the Galician BBS language file if it is not already present
+        if [ ! -e "/var/lib/mbsebbs/int/language.gl" ]; then
+            install -m 640 /usr/share/mbsebbs/int/language.gl /var/lib/mbsebbs/int/language.gl
+        fi
+        # Install the Dutch BBS language file if it is not already present
+        if [ ! -e "/var/lib/mbsebbs/int/language.nl" ]; then
+            install -m 640 /usr/share/mbsebbs/int/language.nl /var/lib/mbsebbs/int/language.nl
+        fi
+        # Install the Chinese BBS language file if it is not already present
+        if [ ! -e "/var/lib/mbsebbs/int/language.zh" ]; then
+            install -m 640 /usr/share/mbsebbs/int/language.zh /var/lib/mbsebbs/int/language.zh
+        fi
 
-    # Install the English BBS language file if it is not already present
-    if [ ! -e "/var/lib/mbsebbs/int/language.en" ]; then
-        install -m 640 /usr/share/mbsebbs/int/language.en /var/lib/mbsebbs/int/language.en
-    fi
-    # Install the Spanish BBS language file if it is not already present
-    if [ ! -e "/var/lib/mbsebbs/int/language.es" ]; then
-        install -m 640 /usr/share/mbsebbs/int/language.es /var/lib/mbsebbs/int/language.es
-    fi
-    # Install the German BBS language file if it is not already present
-    if [ ! -e "/var/lib/mbsebbs/int/language.de" ]; then
-        install -m 640 /usr/share/mbsebbs/int/language.de /var/lib/mbsebbs/int/language.de
-    fi
-    # Install the French BBS language file if it is not already present
-    if [ ! -e "/var/lib/mbsebbs/int/language.fr" ]; then
-        install -m 640 /usr/share/mbsebbs/int/language.fr /var/lib/mbsebbs/int/language.fr
-    fi
-    # Install the Galician BBS language file if it is not already present
-    if [ ! -e "/var/lib/mbsebbs/int/language.gl" ]; then
-        install -m 640 /usr/share/mbsebbs/int/language.gl /var/lib/mbsebbs/int/language.gl
-    fi
-    # Install the Dutch BBS language file if it is not already present
-    if [ ! -e "/var/lib/mbsebbs/int/language.nl" ]; then
-        install -m 640 /usr/share/mbsebbs/int/language.nl /var/lib/mbsebbs/int/language.nl
-    fi
-    # Install the Chinese BBS language file if it is not already present
-    if [ ! -e "/var/lib/mbsebbs/int/language.zh" ]; then
-        install -m 640 /usr/share/mbsebbs/int/language.zh /var/lib/mbsebbs/int/language.zh
-    fi
+        # Create macros directory if not already present
+        if [ ! -d "/var/lib/mbsebbs/int/macro/" ]; then
+            mkdir --mode=755 /var/lib/mbsebbs/int/macro
+        fi
+        # Install english text macro files if that directory is not already present
+        if [ ! -d "/var/lib/mbsebbs/int/macro/en/" ]; then
+            mkdir --mode=755 /var/lib/mbsebbs/int/macro/en
+            tar xfC /usr/share/mbsebbs/int/templates-en.tar /var/lib/mbsebbs/int/macro/en
+        fi
+        # Install spanish text macro files if that directory is not already present
+        if [ ! -d "/var/lib/mbsebbs/int/macro/es/" ]; then
+            mkdir --mode=755 /var/lib/mbsebbs/int/macro/es
+            tar xfC /usr/share/mbsebbs/int/templates-es.tar /var/lib/mbsebbs/int/macro/es
+        fi
+        # Install german text macro files if that directory is not already present
+        if [ ! -d "/var/lib/mbsebbs/int/macro/de/" ]; then
+            mkdir --mode=755 /var/lib/mbsebbs/int/macro/de
+           tar xfC /usr/share/mbsebbs/int/templates-de.tar /var/lib/mbsebbs/int/macro/de
+        fi
+        # Install dutch text macro files if that directory is not already present
+        if [ ! -d "/var/lib/mbsebbs/int/macro/nl/" ]; then
+            mkdir --mode=755 /var/lib/mbsebbs/int/macro/nl
+            tar xfC /usr/share/mbsebbs/int/templates-nl.tar /var/lib/mbsebbs/int/macro/nl
+        fi
 
-    # Create macros directory if not already present
-    if [ ! -d "/var/lib/mbsebbs/int/macro/" ]; then
-        mkdir --mode=755 /var/lib/mbsebbs/int/macro
-    fi
-    # Install english text macro files if that directory is not already present
-    if [ ! -d "/var/lib/mbsebbs/int/macro/en/" ]; then
-        mkdir --mode=755 /var/lib/mbsebbs/int/macro/en
-        tar xfC /usr/share/mbsebbs/int/templates-en.tar /var/lib/mbsebbs/int/macro/en
-    fi
-    # Install spanish text macro files if that directory is not already present
-    if [ ! -d "/var/lib/mbsebbs/int/macro/es/" ]; then
-        mkdir --mode=755 /var/lib/mbsebbs/int/macro/es
-        tar xfC /usr/share/mbsebbs/int/templates-es.tar /var/lib/mbsebbs/int/macro/es
-    fi
-    # Install german text macro files if that directory is not already present
-    if [ ! -d "/var/lib/mbsebbs/int/macro/de/" ]; then
-        mkdir --mode=755 /var/lib/mbsebbs/int/macro/de
-        tar xfC /usr/share/mbsebbs/int/templates-de.tar /var/lib/mbsebbs/int/macro/de
-    fi
-    # Install dutch text macro files if that directory is not already present
-    if [ ! -d "/var/lib/mbsebbs/int/macro/nl/" ]; then
-        mkdir --mode=755 /var/lib/mbsebbs/int/macro/nl
-        tar xfC /usr/share/mbsebbs/int/templates-nl.tar /var/lib/mbsebbs/int/macro/nl
-    fi
+        # Create menu directory if not already present
+        if [ ! -d "/var/lib/mbsebbs/int/menus/" ]; then
+            mkdir --mode=755 /var/lib/mbsebbs/int/menus
+        fi
+        # Install english text menu files if that directory is not already present
+        if [ ! -d "/var/lib/mbsebbs/int/menus/en/" ]; then
+            mkdir --mode=755 /var/lib/mbsebbs/int/menus/en
+            tar xfC /usr/share/mbsebbs/int/menus-en.tar /var/lib/mbsebbs/int/menus/en
+        fi
+        # Install spanish text menu files if that directory is not already present
+        if [ ! -d "/var/lib/mbsebbs/int/menus/es/" ]; then
+            mkdir --mode=755 /var/lib/mbsebbs/int/menus/es
+            tar xfC /usr/share/mbsebbs/int/menus-es.tar /var/lib/mbsebbs/int/menus/es
+        fi
 
-    # Create menu directory if not already present
-    if [ ! -d "/var/lib/mbsebbs/int/menus/" ]; then
-        mkdir --mode=755 /var/lib/mbsebbs/int/menus
-    fi
-    # Install english text menu files if that directory is not already present
-    if [ ! -d "/var/lib/mbsebbs/int/menus/en/" ]; then
-        mkdir --mode=755 /var/lib/mbsebbs/int/menus/en
-        tar xfC /usr/share/mbsebbs/int/menus-en.tar /var/lib/mbsebbs/int/menus/en
-    fi
-    # Install spanish text menu files if that directory is not already present
-    if [ ! -d "/var/lib/mbsebbs/int/menus/es/" ]; then
-        mkdir --mode=755 /var/lib/mbsebbs/int/menus/es
-        tar xfC /usr/share/mbsebbs/int/menus-es.tar /var/lib/mbsebbs/int/menus/es
-    fi
+        # Create txtfiles directory if not already present
+        if [ ! -d "/var/lib/mbsebbs/int/txtfiles/" ]; then
+            mkdir --mode=755 /var/lib/mbsebbs/int/txtfiles
+        fi
+        # Install english text txtfiles files if that directory is not already present
+        if [ ! -d "/var/lib/mbsebbs/int/txtfiles/en/" ]; then
+            mkdir --mode=755 /var/lib/mbsebbs/int/txtfiles/en
+            tar xfC /usr/share/mbsebbs/int/txtfiles-en.tar /var/lib/mbsebbs/int/txtfiles/en
+        fi
+        # Install spanish text txtfiles files if that directory is not already present
+        if [ ! -d "/var/lib/mbsebbs/int/txtfiles/es/" ]; then
+            mkdir --mode=755 /var/lib/mbsebbs/int/txtfiles/es
+            tar xfC /usr/share/mbsebbs/int/txtfiles-es.tar /var/lib/mbsebbs/int/txtfiles/es
+        fi
 
-    # Create txtfiles directory if not already present
-    if [ ! -d "/var/lib/mbsebbs/int/txtfiles/" ]; then
-        mkdir --mode=755 /var/lib/mbsebbs/int/txtfiles
-    fi
-    # Install english text txtfiles files if that directory is not already present
-    if [ ! -d "/var/lib/mbsebbs/int/txtfiles/en/" ]; then
-        mkdir --mode=755 /var/lib/mbsebbs/int/txtfiles/en
-        tar xfC /usr/share/mbsebbs/int/txtfiles-en.tar /var/lib/mbsebbs/int/txtfiles/en
-    fi
-    # Install spanish text txtfiles files if that directory is not already present
-    if [ ! -d "/var/lib/mbsebbs/int/txtfiles/es/" ]; then
-        mkdir --mode=755 /var/lib/mbsebbs/int/txtfiles/es
-        tar xfC /usr/share/mbsebbs/int/txtfiles-es.tar /var/lib/mbsebbs/int/txtfiles/es
-    fi
+        #  Set default user:group for mbsebbs directories
+        chown -R mbsebbs:bbs /var/lib/mbsebbs
+        chown -R mbsebbs:bbs /usr/lib/mbsebbs
 
-    #  Set default user:group for mbsebbs directories
-    chown -R mbsebbs:bbs /var/lib/mbsebbs
-    chown -R mbsebbs:bbs /usr/lib/mbsebbs
+        # Configure setuid & setgid as necessary
+        chown root:root /usr/lib/mbsebbs/bin/mbtask
+        chmod 6711 /usr/lib/mbsebbs/bin/mbtask
+        chown root:root /usr/lib/mbsebbs/bin/mbnewusr
+        chmod 6754 /usr/lib/mbsebbs/bin/mbnewusr
+        chown root:root /usr/lib/mbsebbs/bin/mbuser
+        chmod 6754 /usr/lib/mbsebbs/bin/mbuser
+        chown root:root /usr/lib/mbsebbs/bin/mbuseradd
+        chmod 6754 /usr/lib/mbsebbs/bin/mbuseradd
+        chown root:root /usr/lib/mbsebbs/bin/mbpasswd
+        chmod 6754 /usr/lib/mbsebbs/bin/mbpasswd
 
-    # Configure setuid & setgid as necessary
-    chown root:root /usr/lib/mbsebbs/bin/mbtask
-    chmod 6711 /usr/lib/mbsebbs/bin/mbtask
-    chown root:root /usr/lib/mbsebbs/bin/mbnewusr
-    chmod 6754 /usr/lib/mbsebbs/bin/mbnewusr
-    chown root:root /usr/lib/mbsebbs/bin/mbuser
-    chmod 6754 /usr/lib/mbsebbs/bin/mbuser
-    chown root:root /usr/lib/mbsebbs/bin/mbuseradd
-    chmod 6754 /usr/lib/mbsebbs/bin/mbuseradd
-    chown root:root /usr/lib/mbsebbs/bin/mbpasswd
-    chmod 6754 /usr/lib/mbsebbs/bin/mbpasswd
-
-    #  Run mbsebbs mbsetup initialization if this is a new install
-    if [ -z "$old_version" ]; then
-        su - mbsebbs -c "/usr/lib/mbsebbs/bin/mbsetup init"
-    fi
-
+        #  Run mbsebbs mbsetup initialization if this is a new install
+        if [ -z "$old_version" ]; then
+            su - mbsebbs -c "/usr/lib/mbsebbs/bin/mbsetup init"
+        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
