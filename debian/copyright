@@ -6,7 +6,7 @@ file mbsebbs-0.92.0.tar.bz2
 
 Upstream Author: Michiel Broek <mbroek@mbse.eu>
 
-Copyright: 1998-2007 Michiel Broek 
+Copyright: 1998-2014 Michiel Broek 
 
 License:
 
@@ -27,7 +27,7 @@ License:
 On Debian systems, the complete text of the GNU General
 Public License can be found in `/usr/share/common-licenses/GPL'.
 
-The Debian packaging is (C) 2008-2011, Robert James Clay <jame@rocasa.us> and
+The Debian packaging is (C) 2008-2015, Robert James Clay <jame@rocasa.us> and
 is licensed under the GPL, see above.
 
 
@@ -35,7 +35,7 @@ is licensed under the GPL, see above.
 The HydraCom files mbcico/hydra.h and mbcico/hydra.c are licensed under the GPL, 
 see above, and are copyrighted as follows:
 
-Copyright (C) 1997-2007 Michiel Broek
+Copyright (C) 1997-2014 Michiel Broek
 Copyright (C) 1996-1998 Christof Meerwald
 Copyright (C) 1991-1993 Arjen G. Lentz 
 
