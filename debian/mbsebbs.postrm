@@ -20,20 +20,47 @@ set -e
 
 case "$1" in
     purge)
+        # When being purged; if /usr/lib/mbsebbs/bin/adm exists, remove its contents
+        if [ -d "/usr/lib/mbsebbs/bin/adm" ]; then
+            rm -rf /usr/lib/mbsebbs/bin/adm/*
+            #rmdir /usr/lib/mbsebbs/bin/adm
+        fi
+        # When being purged; if /usr/lib/mbsebbs/bin exists, remove its contents
+        if [ -d "/usr/lib/mbsebbs/bin" ]; then
+            rm -rf /usr/lib/mbsebbs/bin/*
+            #rmdir /usr/lib/mbsebbs/bin
+        fi
+        # When being purged; if /var/lib/mbsebbs/int/macro exists, remove its contents
+        if [ -d "/var/lib/mbsebbs/int/macro" ]; then
+            for DIR in `ls -d /var/lib/mbsebbs/int/macro/*`
+            do
+                rm -rf /var/lib/mbsebbs/int/macro/$DIR/*
+            done
+        fi
+        # When being purged; if /var/lib/mbsebbs/int/menus exists, remove its contents
+        if [ -d "/var/lib/mbsebbs/int/menus" ]; then
+            for DIR in `ls -d /var/lib/mbsebbs/int/menus/*`
+            do
+                rm -rf /var/lib/mbsebbs/int/menus/$DIR/*
+            done
+        fi
+        # When being purged; if /var/lib/mbsebbs/int/txtfiles exists, remove its contents
+        if [ -d "/var/lib/mbsebbs/int/txtfiles" ]; then
+            for DIR in `ls -d /var/lib/mbsebbs/int/txtfiles/*`
+            do
+                rm -rf /var/lib/mbsebbs/int/txtfiles/$DIR/*
+            done
+        fi
+        # When being purged; if /var/lib/mbsebbs/int exists, remove its contents
+        if [ -d "/var/lib/mbsebbs/int" ]; then
+            rm -rf /var/lib/mbsebbs/int/*
+        fi
         deluser --system --remove-home --quiet bbs
         deluser --system --quiet mbsebbs
         delgroup --system --quiet bbs
     ;;
 
-    upgrade)
-        #   Remove these settings for /etc/ledgersmb/*, as dpkg-statoverride
-        # is no longer being used in debian/postinst to set it.
-        if dpkg --compare-versions $2 lt 0.92.0+111209-2; then
-            drop_statoverride;
-        fi
-    ;;
-
-    remove|purge|failed-upgrade|abort-install|abort-upgrade|disappear)
+    remove|purge|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
     ;;
 
     *)

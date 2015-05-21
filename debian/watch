@@ -5,5 +5,6 @@
 # Compulsory line, this is a version 3 file
 version=3
 
-# Check upstream download directory for new versions
-http://www.mbse.eu/bbsing/mbsebbs/download/mbsebbs-(.*)\.tar\.bz2
+# Find new files on sourceforge, for devscripts >= 2.9
+ http://sf.net/mbsebbs/mbsebbs-(.*)\.tar\.bz2
+
