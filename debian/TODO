@@ -1,34 +1,250 @@
 Debian TODO for mbsebbs
------------------------
+=======================
 
-- Add example(s) for mbsebbs nginx config?
 
+-------------------------------------------------------------------------------
+	- Thease are getting installed to /usr/share/doc/mbsebbs/html
+index.html.in
+basic.html.in
+upgrade.html.in
+
+
+Makefile.gz
+
+-------------------------------------------------------------------------------
+$ cd ../lib
+$ grep MBSE_ROOT * |wc -l
+53
+
+
+$ cd ../script
+$ grep MBSE_ROOT * |wc -l
+208
+
+
+------------------------------
+$ cd mbsetup
+$ grep MBSE_ROOT * |wc -l
+361
+    30_mbsetup-changes.patch
+
+------------------------------
+$ cd ../mbcico
+jame@rjcpc:$ grep MBSE_ROOT * |wc -l
+17
+
+    31_mbcico-changes.patch
+
+------------------------------
+$ cd ../mbfido
+jame@rjcpc:$ grep MBSE_ROOT * |wc -l
+131
+
+    32_mbfido-changes.patch
+
+------------------------------
+$ cd ../mbmon
+$ grep MBSE_ROOT * |wc -l
+3
+
+    33_mbmon-changes.patch
+
+------------------------------
+
+$ cd ../mbnntp
+$ grep MBSE_ROOT * |wc -l
+9
+    34_mbnntp-changes.patch
+
+------------------------------
+$ cd ../mbtask
+$ grep MBSE_ROOT * |wc -l
+55
+
+    35_mbtask-changes.patch
+
+- For instance: 
+mbtask: Permission denied
+Can't create lockfile "/usr/lib/mbsebbs/var/run/mbtask.tmp"
+
+
+
+----------------------------- 
+$ cd ../mbsebbs
+$ grep MBSE_ROOT * |wc -l
+96
+
+36_mbsebbs-changes.patch
+
+------------------------------
+$ cd ../unix
+$ grep MBSE_ROOT * |wc -l
+4
+
+    - login.defs is a config file for mblogin; patch to be "/var/lib/mbsebbs/login.defs".
+login.defs.in:# $MBSE_ROOT/etc/login.defs - Configuration control definitions for mblogin.
+    - MBSE_ROOT being used to create the path to $MBSE_ROOT/etc/users.data.
+mblogin.c:485	addenv("MBSE_ROOT", pw->pw_dir);
+    37_mblogin-changes.patch
+
+mbpasswd.c:     * Init $MBSE_ROOT/etc/login.defs file before the *pw gets overwritten.
+    38_mbpasswd-changes.patch
+    
+
+    - Referenced when creating the 'shell' entry for a mbsebbs user /etc/passwd entry
+    - Also references system user name as 'mbse', which will need to be changed.
+mbuseradd.c:385    snprintf(shell, PATH_MAX, "%s/bin/mbsebbs", getenv("MBSE_ROOT"));
+    39_mbuseradd-changes.patch
+
+------------------------------
+$ cd ../mbutils
+$ grep MBSE_ROOT * |wc -l
+12 total; 10 left to patch
+
+
+dlcount.c:    snprintf(temp, PATH_MAX, "%s/var/dlcount.stat", getenv("MBSE_ROOT"));
+dlcount.c:    snprintf(temp, PATH_MAX, "%s/etc/fareas.data", getenv("MBSE_ROOT"));
+mball.c:    snprintf(sAreas, PATH_MAX, "%s/etc/fareas.data", getenv("MBSE_ROOT"));
+mball.c:    snprintf(temp, PATH_MAX, "%s/etc/header.txt", getenv("MBSE_ROOT"));
+mball.c:    snprintf(temp, PATH_MAX, "%s/etc/footer.txt", getenv("MBSE_ROOT"));
+    40_mball-changes.patch
+
+
+    - Is there anything that actually needs to be changed here?
+mbsnmp.c:    if (getenv("MBSE_ROOT") == NULL) {
+mbsnmp.c:	envptr = xstrcpy((char *)"MBSE_ROOT=");
+    41_mbsnmp-changes.patch
+
+
+    - This is attemtping to set BBSpath to MBSE_ROOT & then using that to access
+    $BBSpath/etc/toberep.data.  (created/managed in mbfido)
+mbtoberep.c:	if ((BBSpath = getenv("MBSE_ROOT")) == NULL) {
+mbtoberep.c:		printf("MBSE_ROOT variable not set\n");
+    42_mbtoberep-changes.patch
+
+
+
+
+-------------------------------------------------------------------------------
+
+
+
+Add to mbsetup.c patch
+----------------------
+
+- will need to decide where this should go. Not the same sub directory where
+  the stats html files go because those are intended to be publically available
+  while the config information should be separate because it contains things
+  like passwords. 
+ 
+- Main Menu item:  21.  CREATING SITEDOCS                                                                                                                                    
+
+- 'share/doc/html' plus MBSE_ROOT:  line 223 of mbsetup/mbsetup.c
+     Erasing directory         /usr/lib/mbsebbs/share/doc/html
+
+- 'share/doc/' plus MBSE_ROOT:  line 305 of mbsetup/mbsetup.c
+     Created site documents in /usr/lib/mbsebbs/share/doc 
+
+- Other places in the file.
+
+
+hardening issues
+----------------
+
+    W: mbsebbs: hardening-no-relro 
+    W: mbsebbs: hardening-no-fortify-functions 
+    Directory: usr/lib/mbsebbs/bin/
+        mbaff, mbaff, mball, mbbw, mbcico, mbdiff, mbfido, mbfile, mbindex,
+        mblang, mblogin, mbmon, mbmsg, mbnewusr, mbnntp, mbout, mbpasswd,
+        mbsebbs, mbseq, mbsetup, mbstat, mbtask, mbtoberep, mbuseradd
+
+
+W: mbsebbs: package-contains-vcs-control-file usr/share/doc/mbsebbs/html/.cvsignore
+
+
+- Directory layout upgrades:
+    - Is the old /opt/mbse/var directory getting moved properly?
+
+
+Other
+-----
+
+- Since now have a separate /usr/local/lib/mbsebbs, should all of those
+  sysop scripts being installed in postinst no longer be installed like
+  that? Or at all?  For instance;  in the example crontab, could 
+  reference the various admin scripts as running from
+  /usr/local/lib/mbsebbs
+
+script/maint
+------------
+- patch to explicitly set MBSE_ROOT
+- patch to correct user being checked for.
+- patch to correct path to sema/upsalarm
+- patch to correct '$ID' line (3) to a copyright line & add another line for me?
+- install to /usr/share/mbsebbs/bin ?
+- update path in example crontab.mbsebbs
+    
+script/midnight
+------------
+- patch to explicitly set MBSE_ROOT
+- patch to correct user being checked for.
+- patch to correct path to sema/upsalarm
+- patch to correct '$ID' line (5) to a copyright line & add another line for me?
+- install to /usr/share/mbsebbs/bin ?
+- update path in example crontab.mbsebbs
+    
+script/monthly
+------------_
+- patch to explicitly set MBSE_ROOT
+- patch to correct user being checked for.
+- patch to correct path to sema/upsalarm
+- patch to correct '$ID' line (5) to a copyright line & add another line for me?
+- install to /usr/share/mbsebbs/bin ?
+- update path in example crontab.mbsebbs
+    
+script/weekly
+-------------
+- patch to explicitly set MBSE_ROOT
+- patch to correct user being checked for.
+- patch to correct path to sema/upsalarm
+- patch to correct '$ID' line (5) to a copyright line & add another line for me?
+- install to /usr/share/mbsebbs/bin ?
+- update path in example crontab.mbsebbs
+    
+
+- Should what I'm installing to doc/mbsebbs/examples be installed 
+  somewhere in /usr/share/mbsebbs instead?  Or, along with? Checked
+  and it's not unusual to have a /usr/share/package/examples directory.
+    
 - Rewrite debian/copyright for DEP 5. Review code again; there are at least
-  some files that are not by the MBSE BBS author that are included in the
+  some files that are not by the MBSE BBS author that are included in the 
   code and will need to be listed.
 
-- Configure script explicitly tests for programs only needed by run time system,
-  so create patches to configure script that says that the programs are present.
-  Will that need a build-depends for those programs? Or can just use Suggests?
+- Add a note, with details and/or pointing to example files, for configuring
+  a web server. (don't think it's already in the documentation?) Including for
+  mbsebbs nginx config.
 
-- Should what I'm installing to doc/mbsebbs/examples be installed somewhere
-  in /usr/share/mbsebbs instead?  Or, along with? Checked and it's not unusual
-  to have a /usr/share/package/examples directory.
+- The upstream configure script explicitly tests for programs only needed by
+  run time systems so create patches to configure script that says that the
+  programs are present, particularly if the package is a Depends or Recommends.
+  (Will that need a build-depends for those programs? Or can just use Suggests?)
 
-- Create man pages for executables;  for instance, using help2man or html2man?.
-  Or create basic man pages that points to the html documentation?
+- Create man pages for executables; for instance, using help2man or html2man?.
+  Or create basic man pages that references the html documentation?
 
-- Add creation of a mbsebbs-dbg package (ref http://wiki.debian.org/DebugPackage)
-
-- Create & use debian/po, so that any debconf messages can be translated?
+- Move the examples and HTML docs to a separate package? 
 
 - Add a note about configuring html Docs root (1.15), URL Name, Author name.
-  A note about the 'Hist. Limit'? Example docs root = /opt/mbsebbs/var/www?
-- Create an example stats index file.
+  perhaps a note about the 'Hist. Limit'. Example docs root could be set as
+  /var/lib/mbsebbs/www
+
+- Create an example stats index file?
+
 - will need to add a note about updating the config for that?
 
-- Add a note, with details and/or pointing to example files, for configuring a web server.
- (don't think it's already in the documentation?)
+- Creating a debian/create-orig-source script ?
 
 
- -- Robert James Clay <jame@rocasa.us>  Wed, 11 Mar 2015 14:10
+
+
+ -- Robert James Clay <jame@rocasa.us>  Thu, 21 May 2015 05:40:31
