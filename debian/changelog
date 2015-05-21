@@ -1,34 +1,27 @@
-mbsebbs (1.0.4-1~1) UNRELEASED; urgency=low
+mbsebbs (1.0.4-1~2) UNRELEASED; urgency=low
 
   TODO:
     - Packaging development for new release, including the change to a
       more standard FHS layout for the MBSE BBS package installation.
   * New Upstream Release.
-  * Refresh debian/patches/10_configure-ac.patch for new upstream.
-  * Remove dpkg-statoverride operations from debian/mbsebbs.postrm.
-  * Include 'lhasa' as an option to the 'lha' Suggests in debian/control.
-  * Changes to debian/rules:
-    - Explicitly run dh_auto_clean if Makefile.global file is not present.
-    - Do not attempt to setuid/setgid on binaries in debian/rules.
+  * Changes to debian/mbsebbs.postrm:
+    - Rewrite the 'purge' case section.
+    - Remove dpkg-statoverride operations.
   * Changes to debian/mbsebbs.postinst:
+    - Correct line creating the 'mbseebbs' user.
     - Add configuring setuid & setgid as necessary.
-    - Run 'mbsetup init' if this a new installation.
+    - Run 'mbsetup init' if this is new installation.
     - Set user:group for '/usr/lib/mbsebbs' in directory configuration.
+  * Changes to debian/rules:
+    - Do not attempt to setuid/setgid on binaries in debian/rules.
+    - Explicitly run dh_auto_clean if Makefile.global file is not present.
+  * Update copyright years in debian/copyright,
+  * Correct how mbsebbs 'etc' directory is installed.
+  * Update debian/watch for Mbse BBS SourceForge Project.
+  * Refresh/update debian/patches/10_configure-ac.patch for new upstream.
+  * Include 'lhasa' as an option to the 'lha' Suggests in debian/control.
 
- -- Robert James Clay <jame@rocasa.us>  Wed, 11 Mar 2015 14:51:10 -0400
-
-mbsebbs (1.0.1-2) stable; urgency=low
-
-  * Correct line creating mbsebbs using in debian/mbsebbs.preinst.
-
- -- Robert James Clay <jame@rocasa.us>  Wed, 11 Sep 2014 09:17:48 -0400
-
-mbsebbs (1.0.1-1) stable; urgency=low
-
-  * New Upstream Release.
-  * Refresh debian/patches/10_configure-ac.patch for new upstream.
-
- -- Robert James Clay <jame@rocasa.us>  Wed, 11 Sep 2013 07:48:25 -0400
+ -- Robert James Clay <jame@rocasa.us>  Thu, 21 May 2015 06:10:24 -0400
 
 mbsebbs (0.92.0+111209-2) stable; urgency=low
 
