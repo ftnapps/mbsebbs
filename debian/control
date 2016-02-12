@@ -2,11 +2,11 @@ Source: mbsebbs
 Section: comm
 Priority: extra
 Maintainer: Robert James Clay <jame@rocasa.us>
-Build-Depends: debhelper (>= 7.0.50), autotools-dev, libbz2-dev, libz-dev
-Standards-Version: 3.9.2
-Vcs-Git: git://github.com/jame/mbsebbs.git
-Vcs-Browser: http://github.com/jame/mbsebbs
-Homepage: http://www.mbse.eu/bbsing/mbsebbs
+Build-Depends: debhelper (>= 9), autotools-dev, libbz2-dev, libz-dev
+Standards-Version: 3.9.6
+Vcs-Git: git://github.com/ftnapps/mbsebbs.git
+Vcs-Browser: https://github.com/ftnapps/mbsebbs
+Homepage: https://sourceforge.net/projects/mbsebbs/
 
 Package: mbsebbs
 Architecture: any
@@ -14,11 +14,11 @@ Depends: ${shlibs:Depends}, ${misc:Depends}, adduser, passwd
 Recommends: xinetd, arc, zip, unzip, telnetd-ssl, openssh-server
 Suggests: arj, unrar-free, zoo, lhasa | lha, ha, joe, dosemu, dosemu-freedos, tetradraw
 Description: MBSE BBS System for Unix
- MBSE BBS is a full Fidonet capable ANSI BBS 
- package including a mailer, tosser, ticfile 
- processor, filefind and other utilities. 
+ MBSE BBS is a full Fidonet capable ANSI BBS
+ package including a mailer, tosser, ticfile
+ processor, filefind and other utilities.
  The bbs supports full configurable ANSI
- menus, multiple languages, standard file 
+ menus, multiple languages, standard file
  transfer protocols, native GNU/Linux doors,
  DOS doors using dosemu and BlueWave and QWK
  offline readers.
