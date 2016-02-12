@@ -3,7 +3,7 @@ Section: comm
 Priority: extra
 Maintainer: Robert James Clay <jame@rocasa.us>
 Build-Depends: debhelper (>= 9), autotools-dev, libbz2-dev, libz-dev
-Standards-Version: 3.9.2
+Standards-Version: 3.9.6
 Vcs-Git: git://github.com/jame/mbsebbs.git
 Vcs-Browser: http://github.com/jame/mbsebbs
 Homepage: http://www.mbse.eu/bbsing/mbsebbs
