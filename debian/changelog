@@ -1,9 +1,14 @@
-mbsebbs (1.0.4-1~2) UNRELEASED; urgency=low
+mbsebbs (1.0.6-1~1) UNRELEASED; urgency=low
 
   TODO:
     - Packaging development for new release, including the change to a
       more standard FHS layout for the MBSE BBS package installation.
   * New Upstream Release.
+  * Changes to debian/control:
+    - Update the Vcs* fields to github.com/ftnapps.
+    - Change Standards-Version from v3.9.2 to v3.9.6.
+    - Include 'lhasa' as an option to the 'lha' Suggests.
+    - Update the Homepage field to the MBSE BBS SourceForge project.
   * Changes to debian/mbsebbs.postrm:
     - Rewrite the 'purge' case section.
     - Remove dpkg-statoverride operations.
@@ -12,16 +17,18 @@ mbsebbs (1.0.4-1~2) UNRELEASED; urgency=low
     - Add configuring setuid & setgid as necessary.
     - Run 'mbsetup init' if this is new installation.
     - Set user:group for '/usr/lib/mbsebbs' in directory configuration.
+  * Changes to debian/mbsebbs.preinst:
+    - Correct line creating the 'mbsebbs' user.
   * Changes to debian/rules:
     - Do not attempt to setuid/setgid on binaries in debian/rules.
     - Explicitly run dh_auto_clean if Makefile.global file is not present.
   * Update copyright years in debian/copyright,
   * Correct how mbsebbs 'etc' directory is installed.
-  * Update debian/watch for Mbse BBS SourceForge Project.
+  * Change debhelper compatibility from v7.0.50 to v9.
+  * Update debian/watch to point to theMBSE BBS SourceForge Project.
   * Refresh/update debian/patches/10_configure-ac.patch for new upstream.
-  * Include 'lhasa' as an option to the 'lha' Suggests in debian/control.
 
- -- Robert James Clay <jame@rocasa.us>  Thu, 21 May 2015 06:10:24 -0400
+ -- Robert James Clay <jame@rocasa.us>  Fri, 12 Feb 2016 15:14:56 -0450
 
 mbsebbs (0.92.0+111209-2) stable; urgency=low
 
