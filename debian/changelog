@@ -1,8 +1,17 @@
-mbsebbs (1.0.6-1~1) UNRELEASED; urgency=low
+mbsebbs (1.0.6.8-0~1) UNRELEASED; urgency=low
 
   TODO:
-    - Packaging development for new release, including the change to a
+    - Further Packaging development for updated release. Including the change to a
       more standard FHS layout for the MBSE BBS package installation.
+  * New Upstream Release.
+    - Taken from git commit f7401d92d0dfc861bc12e11623d884fa0a277c83
+  * Refresh/update debian/patches/10_configure-ac.patch for new upstream.
+  * Remove 'NEWS' from debian/mbsebbs.docs as currently unneeded.
+
+ -- Robert James Clay <jame@rocasa.us>  Thu,  8 Sep 2016 13:45:14 -0450
+
+mbsebbs (1.0.6-1) UNRELEASED; urgency=low
+
   * New Upstream Release.
   * Changes to debian/control:
     - Update the Vcs* fields to github.com/ftnapps.
@@ -25,7 +34,7 @@ mbsebbs (1.0.6-1~1) UNRELEASED; urgency=low
   * Update copyright years in debian/copyright,
   * Correct how mbsebbs 'etc' directory is installed.
   * Change debhelper compatibility from v7.0.50 to v9.
-  * Update debian/watch to point to theMBSE BBS SourceForge Project.
+  * Update debian/watch to point to the MBSE BBS SourceForge Project.
   * Refresh/update debian/patches/10_configure-ac.patch for new upstream.
 
  -- Robert James Clay <jame@rocasa.us>  Fri, 12 Feb 2016 15:14:56 -0450
